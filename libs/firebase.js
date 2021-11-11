@@ -1,4 +1,6 @@
 import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 
 import config from '../config'
 
@@ -28,8 +30,7 @@ if (firebase.apps.length) {
   }
 }
 
-import 'firebase/firestore'
-import 'firebase/auth';
+
 
 // auth start
 export const auth = firebase.auth();
