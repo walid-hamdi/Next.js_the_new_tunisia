@@ -12,6 +12,7 @@ export const Loading = () => {
           width:100%;
           height:100%;
           margin-top:2rem;
+          margin-left:2rem;
         }
         
       `}</style>

@@ -5,9 +5,8 @@ import dynamic from 'next/dynamic'
 import Layout from '../../components/Layout'
 import Button from '../../components/Button'
 import Heading from '../../components/Heading'
-// import Input from '../../components/Input'
+import { firebase } from '../../libs/firebase'
 
-import firebase from '../../libs/firebase';
 
 
 const PlayerMain = dynamic(
@@ -28,9 +27,11 @@ export default function RoomPage() {
   } = router.query
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
+
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        setUserName(user.displayName);
+
+        setUserName(user.displayName)
       }
     })
   }, [])

@@ -23,6 +23,18 @@ export function createRoom(id, data) {
     })
 }
 
+export function createIdea(id, data, userId) {
+  if (!config.firebase.enabled) return
+
+
+  return db
+    .doc(`users/${userId}/ideas/${id}`)
+    .set({
+      created: firebase.firestore.FieldValue.serverTimestamp(),
+      ...data,
+    })
+}
+
 export function updateRoom(id, data) {
   if (!config.firebase.enabled) return
   return db
@@ -31,6 +43,13 @@ export function updateRoom(id, data) {
     .update({
       ...data
     })
+}
+
+export function deleteIdea(id, userId) {
+  if (!config.firebase.enabled) return
+  return db
+    .doc(`users/${userId}/ideas/${id}`)
+    .delete()
 }
 
 export function useFirestoreRooms() {
@@ -42,7 +61,11 @@ export function useFirestoreRooms() {
 
   useEffect(() => {
 
+
+
     setIsLoading(true)
+
+
     const unsubscribe = db
       .collection('rooms')
       .orderBy('lastPing', 'desc')
@@ -50,9 +73,69 @@ export function useFirestoreRooms() {
         setRooms(snapshot.docs.map(doc => doc.data()))
         setIsLoading(false)
       })
+    setIsLoading(false)
 
     return unsubscribe
+
+
+
   }, [])
 
   return [rooms, isLoading]
 }
+export function useFirestoreIdeas() {
+
+  const [ideas, setIdeas] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  if (!config.firebase.enabled) return [ideas]
+
+  useEffect(() => {
+
+    setIsLoading(true)
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const userId = user.uid
+        const unsubscribe = db
+          .collection(`users/${userId}/ideas`)
+          .orderBy('created', 'desc')
+          .onSnapshot(snapshot => {
+            setIdeas(snapshot.docs.map(doc => doc.data()))
+            setIsLoading(false)
+          })
+        setIsLoading(false)
+        return unsubscribe
+      }
+      setIsLoading(false)
+
+    })
+
+  }, [])
+
+  return [ideas, isLoading]
+}
+
+export function useAuth() {
+
+
+  const [user, setUser] = useState(null)
+  if (!config.firebase.enabled) return [user]
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+
+        setUser(user)
+      }
+    })
+
+  }, [])
+
+  return [user]
+}
+
+
+
+
+
+

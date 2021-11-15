@@ -15,7 +15,7 @@ export default function Home() {
         <Button outline='granted'
           big fullWidth onClick={() => router.push({
             pathname: '/debates',
-          })}>Our Community</Button>
+          })}>Join Our Community</Button>
 
       </div>
     </div>

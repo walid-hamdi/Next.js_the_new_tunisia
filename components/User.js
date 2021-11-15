@@ -8,14 +8,14 @@ import { CgCrown } from 'react-icons/cg'
 const getInitials = function (string) {
   const names = `${string}`.trim().split(' ')
   let initials = names[0].substring(0, 1).toUpperCase()
-  
+
   if (names.length > 1) {
-      initials += names[names.length - 1].substring(0, 1).toUpperCase()
+    initials += names[names.length - 1].substring(0, 1).toUpperCase()
   }
   return initials
 }
 
-export default function User ({ host, onClick, hoverIcon, reaction, muted, me, stream, name, highlight, ...props }) {
+export default function User({ host, onClick, hoverIcon, reaction, muted, me, stream, name, highlight, ...props }) {
   const [speaking, setSpeaking] = useState(false)
 
   useEffect(() => {
@@ -28,23 +28,23 @@ export default function User ({ host, onClick, hoverIcon, reaction, muted, me, s
 
   return (
     <div className="User" {...props}>
-      <div className={cc([{ speaking, highlight }, 'avatar'])} style={{backgroundColor: stc(name)}} onClick={onClick}>
-        { onClick && hoverIcon && (
+      <div className={cc([{ speaking, highlight }, 'avatar'])} style={{ backgroundColor: stc(name) }} onClick={onClick}>
+        {onClick && hoverIcon && (
           <div className="avatarAction">
-            { hoverIcon }
+            {hoverIcon}
           </div>
         )}
         <span>
           {getInitials(name)}
         </span>
-        { ((muted || me || host) && !reaction) && (
+        {((muted || me || host) && !reaction) && (
           <div className="dot">
             {muted && <FiMicOff />}
-            {host && !me && <CgCrown/>}
+            {host && !me && <CgCrown />}
             {me && !muted && <FiUser />}
           </div>
         )}
-        { reaction && <div className="dot">{reaction}</div>}
+        {reaction && <div className="dot">{reaction}</div>}
       </div>
       <div className="name">
         {name}

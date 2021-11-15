@@ -7,16 +7,21 @@ import { useRouter } from 'next/router';
 import Image from 'next/image'
 
 import firebase, { auth, signInWithGoogle } from '../libs/firebase';
+import { Loading } from './Loading';
 
 
 
 function Navbar() {
   const router = useRouter()
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
+    setIsLoading(true)
     firebase.auth().onAuthStateChanged(user => {
       setUser(user);
+      setIsLoading(false)
     })
   }, [])
 
@@ -34,16 +39,17 @@ function Navbar() {
           <ul className='nav-menu-items'>
 
             <div className="nav-brand">
-              <Image
-                src='/images/logo.svg'
-                alt="Picture of logo"
-                width={180}
-                height={150}
-              />
+              <Link href="/">
+                <a>
+                  <Image
+                    src='/images/logo.svg'
+                    alt="Picture of logo"
+                    width={180}
+                    height={150}
+                  />
+                </a>
+              </Link>
             </div>
-
-
-
 
             {SidebarData.map((item, index) => {
               return (
@@ -58,8 +64,9 @@ function Navbar() {
               );
             })}
 
+            {isLoading && <Loading />}
             {
-              user ? (<div className="auth-div">
+              !isLoading && user ? (<div className="auth-div">
                 {/* <h1>Hello, <span></span>{user.displayName}</h1> */}
                 <div className="photo-profile">
                   <Image
@@ -70,7 +77,7 @@ function Navbar() {
                   />
                 </div>
                 <button className="button signout" onClick={() => auth.signOut()}>Sign out</button>
-              </div>) : <div className="auth-div">
+              </div>) : !isLoading && <div className="auth-div">
                 <button className="button" onClick={signInWithGoogle}>
                   Sign in</button>
               </div>
@@ -135,8 +142,8 @@ function Navbar() {
       }
 
       .nav-brand{
-        margin-bottom:1rem;
-        padding:1rem;
+       
+      
         cursor:pointer;
 
       }

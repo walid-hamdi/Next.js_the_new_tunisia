@@ -172,10 +172,10 @@ export default function CreateRoom() {
 
           </div>
           <div>
-            <Input type='select' placeholder="Room Title" onChange={e => setRoomName(e.target.value)} />
+            <Input placeholder="Room Title" onChange={e => setRoomName(e.target.value)} />
           </div>
           <div>
-            <SelectInput onChange={e => setRoomLanguage(e.target.value)} placeholder="Room Language">
+            <SelectInput onChange={e => setRoomLanguage(e.target.value)}>
               <option selected disabled>Choose the room language</option>
               <option value="English">English</option>
               <option value="Arabic">Arabic</option>
@@ -183,7 +183,7 @@ export default function CreateRoom() {
             </SelectInput>
           </div>
           <div>
-            <SelectInput onChange={e => setRoomLocation(e.target.value)} placeholder="Room City">
+            <SelectInput onChange={e => setRoomLocation(e.target.value)}>
               <option selected disabled>Choose the room location</option>
               {
                 province.map(prov => (

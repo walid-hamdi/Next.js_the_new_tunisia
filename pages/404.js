@@ -1,3 +1,13 @@
+import Heading from "../components/Heading";
+import Layout from "../components/Layout";
+
 export default function Custom404() {
-  return <h1>404 - Page Not Found</h1>
+
+  return <Layout>
+    <div className="page-not-found">
+      <Heading size={1} >Oops!! page not found!</Heading>
+
+
+    </div>
+  </Layout>
 }

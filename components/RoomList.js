@@ -1,13 +1,15 @@
 import Link from 'next/link'
 import { FiUser, FiHome, FiGlobe, FiMapPin, FiBookOpen } from 'react-icons/fi'
+import { useAuth } from '../hooks/useFirestore'
 
 
 
 export default function RoomList({ rooms }) {
+  const [user] = useAuth()
   return (
     <div className="rooms">
       {rooms.map(room => (
-        <Link key={room.roomId} href={`/room/${room.roomId}`}>
+        <Link key={room.roomId} href={user ? `/room/${room.roomId}` : `/`}>
 
           <a>
             <div><FiHome style={{ marginRight: "6px" }} />{room.roomName}</div>
@@ -18,7 +20,7 @@ export default function RoomList({ rooms }) {
 
             <div><FiMapPin style={{ marginRight: "6px" }} />{room.roomLocation} </div>
 
-            <span className="join-badge">Join</span>
+            <span className="join-badge">{user ? "Join Now" : "Please Sigin to join"}</span>
           </a>
 
         </Link>

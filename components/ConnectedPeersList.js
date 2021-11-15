@@ -39,7 +39,7 @@ export default function ConnectedPeersList({ shareLink }) {
 
   const reactions = useMemo(() => {
     return recentEvents
-      .filter(({eventName}) => eventName === 'reaction')
+      .filter(({ eventName }) => eventName === 'reaction')
   }, [recentEvents])
 
   return (
@@ -50,14 +50,14 @@ export default function ConnectedPeersList({ shareLink }) {
         </Heading>
       </Container>
       <div className="grid">
-        { listenersPeers.map(peer => (
+        {listenersPeers.map(peer => (
           <User
             key={peer.peer}
             me={peer.peer === peerId}
             name={peer.metadata?.user?.name || 'Anonym'}
             onClick={isHost ? () => handleUserClick(peer) : null}
-            hoverIcon={<FiPlus/>}
-            reaction={reactions.find(({peer: peerId}) => peerId === peer.peer)?.eventContent}
+            hoverIcon={<FiPlus />}
+            reaction={reactions.find(({ peer: peerId }) => peerId === peer.peer)?.eventContent}
           />
         ))}
         <style jsx>{`
@@ -71,14 +71,14 @@ export default function ConnectedPeersList({ shareLink }) {
           }
         `}</style>
       </div>
-      { shareLink && (
+      {shareLink && (
         <Container>
-          <p>Invite people to the room with this link</p>
-          <div style={{fontSize: 36, display: 'flex', justifyContent: 'center'}}>
-            <WhatsappShareButton style={{marginRight: 20}} url={shareLink} title={shareMessage}><RiWhatsappLine /></WhatsappShareButton>
-            <TelegramShareButton style={{marginRight: 20}} url={shareLink} title={shareMessage}><RiTelegramLine /></TelegramShareButton>
+          <p style={{ marginBottom: "1rem" }}>Invite people to the room with this link</p>
+          <div style={{ fontSize: 36, display: 'flex', justifyContent: 'center' }}>
+            <WhatsappShareButton style={{ marginRight: 20 }} url={shareLink} title={shareMessage}><RiWhatsappLine /></WhatsappShareButton>
+            <TelegramShareButton style={{ marginRight: 20 }} url={shareLink} title={shareMessage}><RiTelegramLine /></TelegramShareButton>
             <CopyToClipboard text={shareLink}>
-              <RiLinksFill style={{cursor: 'pointer'}} />
+              <RiLinksFill style={{ cursor: 'pointer' }} />
             </CopyToClipboard>
           </div>
         </Container>

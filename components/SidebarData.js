@@ -3,6 +3,7 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 
+
 export const SidebarData = [
   {
     title: 'Home',
@@ -23,15 +24,21 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Ideas',
+    title: 'My Ideas',
     path: '/ideas',
     icon: <FaIcons.FaLightbulb />,
     cName: 'nav-text'
   },
   {
-    title: 'Tunisia Now',
+    title: 'Tunisia Data',
     path: '/tunisianow',
     icon: <FaIcons.FaGlobeAfrica />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'About Us',
+    path: '/about',
+    icon: <FaIcons.FaInfo />,
     cName: 'nav-text'
   },
 
