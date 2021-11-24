@@ -43,7 +43,7 @@ export const signInWithGoogle = () => auth.signInWithPopup(provider);
 // auth end
 
 
-export default firebaseApp
 
 
 export { firebaseApp, firebase, analytics, clientCredentials }
+export default firebaseApp
