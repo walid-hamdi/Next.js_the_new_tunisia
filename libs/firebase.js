@@ -27,13 +27,9 @@ if (firebase.apps.length) {
 
 // auth start
 export const auth = firebase.auth();
-
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
-// auth end
-
-export default firebaseApp;
-
 export { firebaseApp, firebase, analytics, clientCredentials };
+export default firebaseApp;
+export const signInWithGoogle = () => auth.signInWithPopup(provider);
