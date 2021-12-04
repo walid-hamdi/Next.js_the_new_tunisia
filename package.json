@@ -7,8 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start",
-		"deploy": "firebase deploy --only hosting"
+		"start": "next start"
 	},
 	"author": "Walid Hamdi <walidhamdidev@gmail.com>",
 	"license": "MIT",

@@ -1,141 +1,97 @@
-import { useState, useEffect } from 'react'
-import { firebase } from '../libs/firebase'
+import { useState, useEffect } from "react";
+import { firebase } from "../libs/firebase";
 
-import config from '../config'
-export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp
-let db
+import config from "../config";
+export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
+let db;
 try {
-  db = firebase.firestore()
+  db = firebase.firestore();
 } catch (e) {
   // Do nothing
 }
 
 export function createRoom(id, data) {
-  if (!config.firebase.enabled) return
+  if (!config.firebase.enabled) return;
   return db
-    .collection('rooms')
+    .collection("rooms")
     .doc(id)
     .set({
       created: firebase.firestore.FieldValue.serverTimestamp(),
       lastPing: firebase.firestore.FieldValue.serverTimestamp(),
       users: 1,
       ...data,
-    })
+    });
 }
 
 export function createIdea(id, data, userId) {
-  if (!config.firebase.enabled) return
+  if (!config.firebase.enabled) return;
 
-
-  return db
-    .doc(`users/${userId}/ideas/${id}`)
-    .set({
-      created: firebase.firestore.FieldValue.serverTimestamp(),
-      ...data,
-    })
+  return db.doc(`users/${userId}/ideas/${id}`).set({
+    created: firebase.firestore.FieldValue.serverTimestamp(),
+    ...data,
+  });
 }
 
 export function updateRoom(id, data) {
-  if (!config.firebase.enabled) return
+  if (!config.firebase.enabled) return;
   return db
-    .collection('rooms')
+    .collection("rooms")
     .doc(id)
     .update({
-      ...data
-    })
+      ...data,
+    });
 }
 
 export function deleteIdea(id, userId) {
-  if (!config.firebase.enabled) return
-  return db
-    .doc(`users/${userId}/ideas/${id}`)
-    .delete()
+  if (!config.firebase.enabled) return;
+  return db.doc(`users/${userId}/ideas/${id}`).delete();
 }
 
 export function useFirestoreRooms() {
+  const [rooms, setRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [rooms, setRooms] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-
-  if (!config.firebase.enabled) return [rooms]
+  if (!config.firebase.enabled) return [rooms];
 
   useEffect(() => {
-
-
-
-    setIsLoading(true)
-
-
+    setIsLoading(true);
     const unsubscribe = db
-      .collection('rooms')
-      .orderBy('lastPing', 'desc')
-      .onSnapshot(snapshot => {
-        setRooms(snapshot.docs.map(doc => doc.data()))
-        setIsLoading(false)
-      })
-    setIsLoading(false)
+      .collection("rooms")
+      .orderBy("lastPing", "desc")
+      .onSnapshot((snapshot) => {
+        setRooms(snapshot.docs.map((doc) => doc.data()));
+        setIsLoading(false);
+      });
+    setIsLoading(false);
 
-    return unsubscribe
+    return unsubscribe;
+  }, []);
 
-
-
-  }, [])
-
-  return [rooms, isLoading]
+  return [rooms, isLoading];
 }
+
 export function useFirestoreIdeas() {
+  const [ideas, setIdeas] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [ideas, setIdeas] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-
-  if (!config.firebase.enabled) return [ideas]
-
-  useEffect(() => {
-
-    setIsLoading(true)
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const userId = user.uid
-        const unsubscribe = db
-          .collection(`users/${userId}/ideas`)
-          .orderBy('created', 'desc')
-          .onSnapshot(snapshot => {
-            setIdeas(snapshot.docs.map(doc => doc.data()))
-            setIsLoading(false)
-          })
-        setIsLoading(false)
-        return unsubscribe
-      }
-      setIsLoading(false)
-
-    })
-
-  }, [])
-
-  return [ideas, isLoading]
-}
-
-export function useAuth() {
-
-
-  const [user, setUser] = useState(null)
-  if (!config.firebase.enabled) return [user]
+  if (!config.firebase.enabled) return;
 
   useEffect(() => {
+    setIsLoading(true);
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+      if (!user) return setIsLoading(false);
 
-        setUser(user)
-      }
-    })
+      const userId = user.uid;
+      const unsubscribe = db
+        .collection(`users/${userId}/ideas`)
+        .orderBy("created", "desc")
+        .onSnapshot((snapshot) => {
+          setIdeas(snapshot.docs.map((doc) => doc.data()));
+          setIsLoading(false);
+        });
+      return unsubscribe;
+    });
+  }, []);
 
-  }, [])
-
-  return [user]
+  return [ideas, isLoading];
 }
-
-
-
-
-
-

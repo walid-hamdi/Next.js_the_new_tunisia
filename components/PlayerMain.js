@@ -158,32 +158,23 @@ function Main({ user }) {
       </ActionGroup>
 
       <style jsx>{`
+        
         .player-container {
-          cursor:pointer;
-           
-
-          margin:auto;
-            // display: flex;
-            // flex-direction: column;
-            // align-items: center;
-
-            width:100%;
+            cursor:pointer;
+            margin:auto;
+            // width:100%;
             height:85vh;
-            
-
             background-color:#14162b;
             border-radius:10px;
             padding:2rem;
-
             position:relative;
           }
+
           .player-container:hover{
             transform:scale(1.05);
             transition: all .2s cubic-bezier(.17,.67,.66,1.77);
           }
         
-        
-
         `}</style>
 
     </div>

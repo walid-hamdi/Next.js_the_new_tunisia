@@ -1,43 +1,54 @@
-import { useEffect, useState, useRef } from 'react'
-import hark from 'hark'
-import stc from 'string-to-color'
-import cc from 'classcat'
-import { FiUser, FiMicOff, FiX } from 'react-icons/fi'
-import { CgCrown } from 'react-icons/cg'
+import { useEffect, useState, useRef } from "react";
+import hark from "hark";
+import stc from "string-to-color";
+import cc from "classcat";
+import { FiUser, FiMicOff, FiX } from "react-icons/fi";
+import { CgCrown } from "react-icons/cg";
 
 const getInitials = function (string) {
-  const names = `${string}`.trim().split(' ')
-  let initials = names[0].substring(0, 1).toUpperCase()
+  const names = `${string}`.trim().split(" ");
+  let initials = names[0].substring(0, 1).toUpperCase();
 
   if (names.length > 1) {
-    initials += names[names.length - 1].substring(0, 1).toUpperCase()
+    initials += names[names.length - 1].substring(0, 1).toUpperCase();
   }
-  return initials
-}
+  return initials;
+};
 
-export default function User({ host, onClick, hoverIcon, reaction, muted, me, stream, name, highlight, ...props }) {
-  const [speaking, setSpeaking] = useState(false)
+export default function User({
+  host,
+  onClick,
+  hoverIcon,
+  reaction,
+  muted,
+  me,
+  stream,
+  name,
+  highlight,
+  ...props
+}) {
+  const [speaking, setSpeaking] = useState(false);
 
   useEffect(() => {
-    if (!stream) return
-    if (!stream instanceof MediaStream) return
-    const speechEvents = hark(stream)
-    speechEvents.on('speaking', () => setSpeaking(true))
-    speechEvents.on('stopped_speaking', () => setSpeaking(false))
-  }, [stream])
+    if (!stream) return;
+    if (!stream instanceof MediaStream) return;
+    const speechEvents = hark(stream);
+    speechEvents.on("speaking", () => setSpeaking(true));
+    speechEvents.on("stopped_speaking", () => setSpeaking(false));
+  }, [stream]);
 
   return (
     <div className="User" {...props}>
-      <div className={cc([{ speaking, highlight }, 'avatar'])} style={{ backgroundColor: stc(name) }} onClick={onClick}>
+      <div
+        className={cc([{ speaking, highlight }, "avatar"])}
+        style={{ backgroundColor: stc(name) }}
+        onClick={onClick}
+      >
         {onClick && hoverIcon && (
-          <div className="avatarAction">
-            {hoverIcon}
-          </div>
+          <div className="avatarAction">{hoverIcon}</div>
         )}
-        <span>
-          {getInitials(name)}
-        </span>
-        {((muted || me || host) && !reaction) && (
+        <span>{getInitials(name)}</span>
+        {(muted || me || host) && !reaction && (
           <div className="dot">
             {muted && <FiMicOff />}
             {host && !me && <CgCrown />}
@@ -46,16 +57,14 @@ export default function User({ host, onClick, hoverIcon, reaction, muted, me, st
         )}
         {reaction && <div className="dot">{reaction}</div>}
       </div>
-      <div className="name">
-        {name}
-      </div>
+      <div className="name">{name}</div>
       <style jsx>{`
-        --avatar-size: 60px;
-        --dot-size: 30px;
+        // --avatar-size: 60px;
+        // --dot-size: 30px;
 
         .avatarAction {
           position: absolute;
-          background: rgba(0,0,0,0.65);
+          background: rgba(0, 0, 0, 0.65);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -79,7 +88,7 @@ export default function User({ host, onClick, hoverIcon, reaction, muted, me, st
           height: var(--dot-size);
           border-radius: var(--dot-size);
           right: calc(var(--dot-size) / -2);
-          bottom: calc(var(--dot-size) / -4);;
+          bottom: calc(var(--dot-size) / -4);
           color: var(--dark-bg);
           text-indent: 3px;
 
@@ -116,13 +125,13 @@ export default function User({ host, onClick, hoverIcon, reaction, muted, me, st
           color: var(--active-color);
           position: relative;
         }
-        
+
         .avatar.highlight {
           box-shadow: 0 0px 0px 4px rgb(1 0 0 / 30%);
         }
 
         .avatar::after {
-          content: '';
+          content: "";
           position: absolute;
           z-index: -1;
           width: 100%;
@@ -138,12 +147,12 @@ export default function User({ host, onClick, hoverIcon, reaction, muted, me, st
           opacity: 1;
           transform: scale(1);
         }
-        
+
         .avatar span {
           font-size: calc(var(--avatar-size) / 2); /* 50% of parent */
           font-weight: 600;
         }
       `}</style>
     </div>
-  )
+  );
 }

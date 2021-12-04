@@ -1,73 +1,80 @@
-import Input from '../components/Input'
-import SelectInput from '../components/SelectInput'
-import Layout from '../components/Layout'
-import Heading from '../components/Heading'
-import Button from '../components/Button'
-import { useEffect, useState, useMemo } from 'react'
-import firebase from '../libs/firebase'
-import config from '../config'
-import IdeaList from '../components/IdeaList'
-import { Loading } from '../components/Loading'
+import Input from "../components/Input";
+import SelectInput from "../components/SelectInput";
+import Layout from "../components/Layout";
+import Heading from "../components/Heading";
+import Button from "../components/Button";
+import { useEffect, useState, useMemo } from "react";
+import firebase from "../libs/firebase";
+import config from "../config";
+import IdeaList from "../components/IdeaList";
+import { Loading } from "../components/Loading";
 
-import uuid from 'uuid-random'
+import uuid from "uuid-random";
 
 import {
   createIdea as dbCreateIdea,
   useFirestoreIdeas,
-  useAuth
-} from '../hooks/useFirestore'
+} from "../hooks/useFirestore";
 
 export default function Ideas() {
-  const [ideaTitle, setIdeaTitle] = useState('')
-  const [ideaDes, setIdeaDes] = useState('')
-  const [ideaTopic, setIdeaTopic] = useState(null)
-  const [user] = useAuth()
-  const [createFormError, setCreateFormError] = useState(false)
-  const [ideas, isLoading] = useFirestoreIdeas()
+  const [ideaTitle, setIdeaTitle] = useState("");
+  const [ideaDes, setIdeaDes] = useState("");
+  const [ideaTopic, setIdeaTopic] = useState(null);
+  const [user, setUser] = useState(null);
+  const [createFormError, setCreateFormError] = useState(false);
+  const [ideas, isLoading] = useFirestoreIdeas();
+
+  useEffect(() => {
+    try {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          setUser(user);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const exploreIdeas = useMemo(() => {
-    const now = +new Date() / 1000
-    return ideas.filter((idea) => idea.created)
+    const now = +new Date() / 1000;
+    return ideas.filter((idea) => idea.created);
     // .filter(idea => now - idea.created.seconds < 30)
-  }, [ideas])
-
+  }, [ideas]);
 
   function validForm() {
     if (!user) {
-      setCreateFormError('Please make sure that you are logged in first')
-      return false
+      setCreateFormError("Please make sure that you are logged in first");
+      return false;
     }
-    if (ideaTitle.trim().length < 8) {
+    if (ideaTitle.trim().length < 5) {
       setCreateFormError(
-        'The Title of the idea must be longer than 8 characters'
-      )
-      return false
+        "The Title of the idea must be longer than 5 characters"
+      );
+      return false;
     }
 
-    if (ideaDes.trim().length < 30) {
+    if (ideaDes.trim().length < 10) {
       setCreateFormError(
-        'The description of the idea must be longer than 30 characters'
-      )
-      return false
+        "The description of the idea must be longer than 10 characters"
+      );
+      return false;
     }
 
     if (!ideaTopic) {
-      setCreateFormError('Please make sure that you select Topic idea')
-      return false
+      setCreateFormError("Please make sure that you select Topic idea");
+      return false;
     }
 
-    setCreateFormError(false)
-    return true
+    setCreateFormError(false);
+    return true;
   }
 
-
-
   function createIdea(e) {
-    e.preventDefault()
-    if (!validForm()) return
-    const userId = user.uid
-    const ideaId = uuid()
-
+    e.preventDefault();
+    if (!validForm()) return;
+    const userId = user.uid;
+    const ideaId = uuid();
 
     dbCreateIdea(
       ideaId,
@@ -76,19 +83,17 @@ export default function Ideas() {
         ideaTitle,
         ideaDes,
         ideaTopic,
-        userId
-      }
-      , userId)
+        userId,
+      },
+      userId
+    );
 
     e.target.reset();
 
-    setIdeaTitle("")
-    setIdeaDes("")
-    setIdeaTopic(null)
-
+    setIdeaTitle("");
+    setIdeaDes("");
+    setIdeaTopic(null);
   }
-
-
 
   return (
     <Layout>
@@ -98,7 +103,7 @@ export default function Ideas() {
           <form onSubmit={createIdea}>
             <div style={{ marginTop: 20 }}>
               <Input
-                onChange={(e) => setIdeaTitle(e.target.value)}
+                onChange={(e) => setIdeaTitle(e.target.value.toUpperCase())}
                 placeholder="Idea title"
               />
             </div>
@@ -114,8 +119,9 @@ export default function Ideas() {
               <SelectInput
                 placeholder="Idea Topic"
                 onChange={(e) => setIdeaTopic(e.target.value)}
+                defaultValue="default"
               >
-                <option selected disabled>
+                <option value="default" disabled>
                   Choose the idea topic
                 </option>
                 <option value="Medical Transformation">
@@ -130,7 +136,9 @@ export default function Ideas() {
                 <option value="Education Transformation">
                   Education Transformation
                 </option>
-                <option value="Media Transformation">Media Transformation</option>
+                <option value="Media Transformation">
+                  Media Transformation
+                </option>
 
                 <option value="other">Other</option>
               </SelectInput>
@@ -138,7 +146,7 @@ export default function Ideas() {
 
             {createFormError && <div className="error">{createFormError}</div>}
 
-            <div style={{ marginTop: 20, width: 'fit-content' }}>
+            <div style={{ marginTop: 20, width: "fit-content" }}>
               <Button outline="granted" type="submit">
                 Create Idea
               </Button>
@@ -150,8 +158,6 @@ export default function Ideas() {
           <div className="spacing display-idea" style={{ marginTop: 30 }}>
             {isLoading && <Loading />}
 
-
-
             {!isLoading && exploreIdeas.length === 0 && (
               <div>You haven't shared any idea yet!</div>
             )}
@@ -162,50 +168,50 @@ export default function Ideas() {
 
         <style jsx>
           {`
-						textarea {
-							resize: none;
-							width: 100%;
-							height: 150px;
-							border: none;
-							background-color: var(--dark-bg);
-							border-radius: 4px;
-							// font-family: var(--body-font);
-							font-size: 15px;
-							font-weight: 500;
-							padding: 0 20px;
-							box-shadow: 0 0 0 2px rgb(134 140 160 / 2%);
-							background-size: 14px;
-							line-height: 40px;
-							background-repeat: no-repeat;
-							background-position: 16px 48%;
-							color: var(--active-color);
-							outline: none;
-							margin-bottom: 5px;
-						}
+            textarea {
+              resize: none;
+              width: 100%;
+              height: 150px;
+              border: none;
+              background-color: var(--dark-bg);
+              border-radius: 4px;
+              // font-family: var(--body-font);
+              font-size: 15px;
+              font-weight: 500;
+              padding: 0 20px;
+              box-shadow: 0 0 0 2px rgb(134 140 160 / 2%);
+              background-size: 14px;
+              line-height: 40px;
+              background-repeat: no-repeat;
+              background-position: 16px 48%;
+              color: var(--active-color);
+              outline: none;
+              margin-bottom: 5px;
+            }
 
-						.idea-page {
-							margin-top: 2rem;
-							display: flex;
-							justify-content: center;
-							align-items: center;
-							gap: 2rem;
-							width: 100%;
-						}
-						.create-idea {
-							width: 400px;
-						}
-						.display-idea {
-							width: 100%;
-						}
+            .idea-page {
+              margin-top: 2rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 2rem;
+              width: 100%;
+            }
+            .create-idea {
+              width: 400px;
+            }
+            .display-idea {
+              width: 100%;
+            }
 
-						.error {
-							font-size: 12px;
-							text-align: center;
-							margin: 6px 0;
-						}
-					`}
+            .error {
+              font-size: 12px;
+              text-align: center;
+              margin: 6px 0;
+            }
+          `}
         </style>
       </div>
     </Layout>
-  )
+  );
 }
