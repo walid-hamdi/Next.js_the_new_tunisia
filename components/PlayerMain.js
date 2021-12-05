@@ -1,53 +1,66 @@
-import { useContext, useEffect } from 'react'
-import { FiMic, FiMicOff, FiAlertTriangle } from 'react-icons/fi'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { useContext, useEffect } from "react";
+import { FiMic, FiMicOff, FiAlertTriangle } from "react-icons/fi";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-import { PeerContextProvider, PeerContext } from '../contexts/PeerJSContext'
-import { StreamContextProvider, StreamContext } from '../contexts/StreamContext'
+import { PeerContextProvider, PeerContext } from "../contexts/PeerJSContext";
+import {
+  StreamContextProvider,
+  StreamContext,
+} from "../contexts/StreamContext";
 
-import Streamer from './Streamer'
-import StreamPlayer from './StreamPlayer'
-import Heading from './Heading'
-import ConnectedPeersList from './ConnectedPeersList'
-import ActionGroup from './ActionGroup'
-import Button from './Button'
-import Container from './Container'
+import Streamer from "./Streamer";
+import StreamPlayer from "./StreamPlayer";
+import Heading from "./Heading";
+import ConnectedPeersList from "./ConnectedPeersList";
+import ActionGroup from "./ActionGroup";
+import Button from "./Button";
+import Container from "./Container";
 
-export default function PlayerMain({ roomId, roomName, userName, isHost }) {
-
+export default function PlayerMain({
+  roomId,
+  userName,
+  roomName,
+  roomTopic,
+  roomLanguage,
+  roomLocation,
+  isHost,
+}) {
   return (
     <StreamContextProvider>
-      <PeerContextProvider initialContext={{
-        isHost,
-        roomId,
-        user: {
-          name: userName,
-        },
-        roomMetadata: {
-          title: roomName,
-        },
-      }}>
-        <Main user={{
-          name: userName,
-        }} />
+      <PeerContextProvider
+        initialContext={{
+          isHost,
+          roomId,
+          user: {
+            name: userName,
+          },
+          roomMetadata: {
+            title: roomName,
+            topic: roomTopic,
+            language: roomLanguage,
+            location: roomLocation,
+          },
+        }}
+      >
+        <Main
+          user={{
+            name: userName,
+          }}
+        />
       </PeerContextProvider>
     </StreamContextProvider>
-  )
+  );
 }
 
 function Main({ user }) {
-  const router = useRouter()
+  const router = useRouter();
 
   if (!user.name) {
-    router.push('/')
+    router.push("/");
   }
 
-  const {
-    muteToggle,
-    micMuted,
-    startMicStream,
-  } = useContext(StreamContext)
+  const { muteToggle, micMuted, startMicStream } = useContext(StreamContext);
 
   const {
     state: {
@@ -63,50 +76,54 @@ function Main({ user }) {
       peersOnRoom,
       peerList,
     },
-    streams: {
-      incomingStreams,
-      outgoingStreams,
-    },
+    streams: { incomingStreams, outgoingStreams },
     actions: {
       onPromotePeerToSpeaker,
       onDemotePeerToListener,
       sendMessageToHost,
       // reconnectToHost,
-    }
-  } = useContext(PeerContext)
+    },
+  } = useContext(PeerContext);
 
   useEffect(() => {
-    if (!isHost) return
-    startMicStream()
-  }, [isHost])
+    if (!isHost) return;
+    startMicStream();
+  }, [isHost]);
 
-  const shareLink = typeof window === 'undefined' ? '' : `${window.location.protocol || ''}//${window.location.host || ''}/room/${roomId}`
+  const shareLink =
+    typeof window === "undefined"
+      ? ""
+      : `${window.location.protocol || ""}//${
+          window.location.host || ""
+        }/room/${roomId}`;
 
   async function onLeave() {
     if (isHost) {
-      const agree = confirm('As a host, when you quit the room all listeners will be disconnected')
-      if (!agree) return
+      const agree = confirm(
+        "As a host, when you quit the room all listeners will be disconnected"
+      );
+      if (!agree) return;
     }
-    if (connToHost) connToHost.close()
+    if (connToHost) connToHost.close();
     if (connectedPeers) {
-      connectedPeers.forEach(conn => {
-        conn.close()
-      })
+      connectedPeers.forEach((conn) => {
+        conn.close();
+      });
     }
     if (outgoingStreams) {
-      outgoingStreams.forEach(conn => {
-        conn.close()
-      })
+      outgoingStreams.forEach((conn) => {
+        conn.close();
+      });
     }
     if (incomingStreams) {
-      incomingStreams.forEach(conn => {
-        conn.call.close()
-      })
+      incomingStreams.forEach((conn) => {
+        conn.call.close();
+      });
     }
-    router.push('/')
+    router.push("/");
   }
 
-  if (peerStatus === 'error') {
+  if (peerStatus === "error") {
     return (
       <Container>
         <div>
@@ -125,58 +142,104 @@ function Main({ user }) {
           }
         `}</style>
       </Container>
-    )
+    );
   }
 
   function handleReaction(emoji) {
     sendMessageToHost({
-      action: 'sendReaction',
+      action: "sendReaction",
       payload: emoji,
-    })
+    });
   }
 
   return (
     <div className="player-container">
       <Container>
-        <Heading>
-          Room Topic : {roomMetadata.title}
-        </Heading>
+        <div className="flex">
+          <Button small success>
+            Owner : {user.name}
+          </Button>
+          <Button small>Room Topic : {roomMetadata.topic}</Button>
+          <Button small>Room Title : {roomMetadata.title}</Button>
+          <Button small>Room Language : {roomMetadata.language}</Button>
+          <Button small>Room Location : {roomMetadata.location}</Button>
+        </div>
       </Container>
       <StreamPlayer />
       <ConnectedPeersList shareLink={isHost ? shareLink : null} />
-      <ActionGroup className="action-group">
-        <Button outline contrast onClick={onLeave}>Leave</Button>
-        {(isHost || connRole === 'speaker') && (
-          <Button style={{ marginLeft: 10 }} contrast outline={!micMuted} onClick={muteToggle}>
-            {micMuted && <FiMicOff />}
-            {!micMuted && <FiMic />}
+      <ActionGroup style={{ justifyContent: "space-between" }}>
+        <div>
+          <Button avoid onClick={onLeave}>
+            Leave
           </Button>
-        )}
-        {!isHost && <Button style={{ marginLeft: 10 }} small outline contrast onClick={() => handleReaction('🙋‍♀️')}>🙋‍♀️</Button>}
-        {!isHost && <Button style={{ marginLeft: 10 }} small outline contrast onClick={() => handleReaction('👍')}>👍</Button>}
-        {!isHost && <Button style={{ marginLeft: 10 }} small outline contrast onClick={() => handleReaction('👎')}>👎</Button>}
+
+          {(isHost || connRole === "speaker") && (
+            <Button style={{ marginLeft: 10 }} contrast onClick={muteToggle}>
+              {micMuted && <FiMicOff />}
+              {!micMuted && <FiMic />}
+            </Button>
+          )}
+          {!isHost && (
+            <Button
+              style={{ marginLeft: 10 }}
+              small
+              outline
+              contrast
+              onClick={() => handleReaction("🙋‍♀️")}
+            >
+              🙋‍♀️
+            </Button>
+          )}
+          {!isHost && (
+            <Button
+              style={{ marginLeft: 10 }}
+              small
+              outline
+              contrast
+              onClick={() => handleReaction("👍")}
+            >
+              👍
+            </Button>
+          )}
+          {!isHost && (
+            <Button
+              style={{ marginLeft: 10 }}
+              small
+              outline
+              contrast
+              onClick={() => handleReaction("👎")}
+            >
+              👎
+            </Button>
+          )}
+        </div>
+        <Link href={"/debates"} style={{ justifySelf: "right" }}>
+          <a target="_blank">
+            <Button outline contrast>
+              See all rooms available
+            </Button>
+          </a>
+        </Link>
       </ActionGroup>
 
       <style jsx>{`
-        
+        .flex {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
         .player-container {
-            cursor:pointer;
-            margin:auto;
-            // width:100%;
-            height:85vh;
-            background-color:#14162b;
-            border-radius:10px;
-            padding:2rem;
-            position:relative;
-          }
-
-          .player-container:hover{
-            transform:scale(1.05);
-            transition: all .2s cubic-bezier(.17,.67,.66,1.77);
-          }
-        
-        `}</style>
-
+          cursor: pointer;
+          margin: auto;
+          // width:100%;
+          height: 85vh;
+          background-color: #14162b;
+          border-radius: 10px;
+          padding: 1rem;
+          position: relative;
+        }
+      `}</style>
     </div>
-  )
+  );
 }

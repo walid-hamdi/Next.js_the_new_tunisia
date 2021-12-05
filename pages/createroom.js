@@ -14,7 +14,7 @@ import { firebase } from "../libs/firebase";
 export default function CreateRoom() {
   const router = useRouter();
 
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState(null);
   const [roomName, setRoomName] = useState("");
   const [roomTopic, setRoomTopic] = useState(null);
   const [roomLocation, setRoomLocation] = useState(null);
@@ -110,6 +110,14 @@ export default function CreateRoom() {
   }
 
   function createRoom() {
+    console.log(
+      roomId,
+      roomName,
+      userName,
+      roomTopic,
+      roomLanguage,
+      roomLocation
+    );
     if (!validForm()) return;
     const roomId = uuid();
     dbCreateRoom(roomId, {

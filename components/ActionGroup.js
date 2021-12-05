@@ -1,9 +1,8 @@
+import Button from "./Button";
 
-import Button from './Button'
-
-export default function Action({ children }) {
+export default function Action({ children, style }) {
   return (
-    <div className="actions">
+    <div className="actions" style={style}>
       {children}
       <style jsx>{`
         .actions {
@@ -12,12 +11,12 @@ export default function Action({ children }) {
           padding: 20px;
           background: var(--active-color);
           display: flex;
-          width:calc(100% - 4rem);
-          position:absolute;
-          bottom:20px;
-          left:2rem;
+          width: calc(100% - 4rem);
+          position: absolute;
+          bottom: 20px;
+          left: 2rem;
         }
       `}</style>
     </div>
-  )
+  );
 }

@@ -62,7 +62,6 @@ export function useFirestoreRooms() {
         setRooms(snapshot.docs.map((doc) => doc.data()));
         setIsLoading(false);
       });
-    setIsLoading(false);
 
     return unsubscribe;
   }, []);

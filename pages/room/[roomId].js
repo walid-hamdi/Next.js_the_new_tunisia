@@ -11,21 +11,22 @@ const PlayerMain = dynamic(() => import("../../components/PlayerMain"), {
   ssr: false,
 });
 
-export default function RoomPage() {
+export default function RoomPage(props) {
   const router = useRouter();
-  const [userName, setUserName] = useState("");
   const [willingToConnect, setWillingToConnect] = useState(false);
   const [joinFormError, setJoinFormError] = useState(false);
+  const [username, setUsername] = useState("");
 
   const audioEl = useRef();
 
-  const { roomId } = router.query;
+  const { roomId, roomName, roomTopic, roomLanguage, roomLocation } =
+    router.query;
 
   useEffect(() => {
     try {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          setUserName(user.displayName);
+          setUsername(user.displayName);
         }
       });
     } catch (error) {
@@ -34,7 +35,7 @@ export default function RoomPage() {
   }, []);
 
   function validForm() {
-    if (!userName) {
+    if (!username) {
       setJoinFormError("You must auth first!");
       return false;
     }
@@ -77,7 +78,15 @@ export default function RoomPage() {
         </div>
       )}
       {willingToConnect && (
-        <PlayerMain roomId={roomId} userName={userName} isHost={false} />
+        <PlayerMain
+          roomId={roomId}
+          userName={username}
+          // roomName={roomName}
+          // roomTopic={roomTopic}
+          // roomLanguage={roomLanguage}
+          // roomLocation={roomLocation}
+          isHost={false}
+        />
       )}
       <style jsx>{`
         .willing-to-connect {

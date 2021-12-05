@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 import { FiUser, FiHome, FiGlobe, FiMapPin, FiBookOpen } from "react-icons/fi";
 import { firebase } from "../libs/firebase";
 
 export default function RoomList({ rooms }) {
   const [user, setUser] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     try {
@@ -18,10 +21,18 @@ export default function RoomList({ rooms }) {
     }
   }, []);
 
+  // http://localhost:3000/room/e9850f1e-fcd7-456b-89f4-012a69d652a7
+  // http://localhost:3000/cast/e9850f1e-fcd7-456b-89f4-012a69d652a7
+
   return (
     <div className="rooms">
       {rooms.map((room) => (
-        <Link key={room.roomId} href={user ? `/room/${room.roomId}` : `/`}>
+        <Link
+          key={room.roomId}
+          href={{
+            pathname: user ? `/room/${room.roomId}` : `/`,
+          }}
+        >
           <a>
             <div>
               <FiHome style={{ marginRight: "6px" }} />
@@ -31,21 +42,21 @@ export default function RoomList({ rooms }) {
               {room.users || 0} <FiUser style={{ marginLeft: "6px" }} />
             </div>
             <div>
-              <FiBookOpen style={{ marginRight: "6px" }} /> {room.roomTopic}{" "}
+              <FiBookOpen style={{ marginRight: "6px" }} /> {room.roomTopic}
             </div>
 
             <div>
               <FiGlobe style={{ marginRight: "6px" }} />
-              {room.roomLanguage}{" "}
+              {room.roomLanguage}
             </div>
 
             <div>
               <FiMapPin style={{ marginRight: "6px" }} />
-              {room.roomLocation}{" "}
+              {room.roomLocation}
             </div>
 
             <span className="join-badge">
-              {user ? "Join Now" : "Please Sigin to join"}
+              {user ? "Join Now" : "Please Sign to join"}
             </span>
           </a>
         </Link>
