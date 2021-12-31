@@ -1,13 +1,11 @@
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
-import { firebase } from "../../libs/firebase";
 import Head from "next/head";
-import { AuthContext, useAuth } from "../../contexts/AuthUserContext";
 
 const PlayerMain = dynamic(() => import("../../components/PlayerMain"), {
   ssr: false,
