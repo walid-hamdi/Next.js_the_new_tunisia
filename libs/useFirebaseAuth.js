@@ -23,6 +23,7 @@ export default function useFirebaseAuth() {
     if (!authState) {
       setAuthUser(null);
       setLoading(false);
+      console.log("err");
       return;
     }
 
