@@ -6,6 +6,7 @@ import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import Head from "next/head";
+import { useAuth } from "../../contexts/AuthUserContext";
 
 const PlayerMain = dynamic(() => import("../../components/PlayerMain"), {
   ssr: false,
