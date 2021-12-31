@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import RoomList from "../components/RoomList";
 import Heading from "../components/Heading";
@@ -24,6 +25,14 @@ export default function Debates() {
   return (
     <Layout>
       <div style={{ marginTop: 20, width: "fit-content" }}>
+        <Head>
+          <title>Debates | The New Tunisia</title>
+          <meta
+            name="description"
+            content="Talk with others voice conversations, the new tunisia developer community"
+          />
+        </Head>
+
         <Button
           outline="granted"
           fullWidth

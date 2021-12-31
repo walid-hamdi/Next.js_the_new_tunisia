@@ -1,25 +1,24 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { FiUser, FiHome, FiGlobe, FiMapPin, FiBookOpen } from "react-icons/fi";
-import { firebase } from "../libs/firebase";
+import { useAuth } from "../contexts/AuthUserContext";
 
 export default function RoomList({ rooms }) {
-  const [user, setUser] = useState();
   const router = useRouter();
 
+  const [user, setUser] = useState(null);
+  // const [error, setError] = useState(null);
+
+  const { authUser, loading } = useAuth();
+
   useEffect(() => {
-    try {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          setUser(user);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+    if (!loading && !authUser) router.push("/");
+    else setUser(authUser);
+
+    console.log(authUser);
+  }, [authUser, loading]);
 
   // http://localhost:3000/room/e9850f1e-fcd7-456b-89f4-012a69d652a7
   // http://localhost:3000/cast/e9850f1e-fcd7-456b-89f4-012a69d652a7

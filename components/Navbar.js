@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { SidebarData } from "./SidebarData";
 import * as FaIcons from "react-icons/fa";
 import { IconContext } from "react-icons";
@@ -6,28 +6,35 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-import firebase, { auth, signInWithGoogle } from "../libs/firebase";
 import { Loading } from "./Loading";
+import { useAuth } from "../contexts/AuthUserContext";
+
+import styles from "./navbar.module.css";
+import cn from "classcat";
 
 function Navbar() {
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const { authUser, loading, signOut, signInWithGoogle } = useAuth();
 
   useEffect(() => {
-    setIsLoading(true);
-    firebase.auth().onAuthStateChanged((user) => {
-      setUser(user);
-      setIsLoading(false);
-    });
-  }, []);
+    if (!loading && !authUser) router.push("/");
+    else setUser(authUser);
+  }, [authUser, loading]);
+
+  const handleSignWithGoogle = () => {
+    setError(null);
+    signInWithGoogle();
+  };
 
   return (
     <div>
       <IconContext.Provider value={{ color: "#fff" }}>
-        <nav className="nav-menu">
-          <ul className="nav-menu-items">
-            <div className="nav-brand">
+        <nav className={styles.navMenu}>
+          <ul className={styles.navMenuItems}>
+            <div className={styles.navBrand}>
               <Link href="/">
                 <a>
                   <Image
@@ -46,40 +53,45 @@ function Navbar() {
                   <Link href={item.path}>
                     <a
                       className={
-                        router.pathname === `${item.path}` ? "active" : ""
+                        router.pathname === `${item.path}`
+                          ? `${cn([styles.anchor, styles.active])}`
+                          : `${styles.anchor}`
                       }
                     >
                       {item.icon}
-                      <span>{item.title}</span>
+                      <span className={styles.title}>{item.title}</span>
                     </a>
                   </Link>
                 </li>
               );
             })}
 
-            {isLoading && <Loading />}
-            {!isLoading && user ? (
-              <div className="auth-div">
+            {loading && <Loading />}
+            {!loading && user ? (
+              <div className={styles.authDiv}>
                 {/* <h1>Hello, <span></span>{user.displayName}</h1> */}
-                <div className="photo-profile">
+                <div className={styles.photoProfile}>
                   <Image
-                    src={user.photoURL}
+                    src={user.photoUrl || "/images/avatar.jpg"}
                     alt="Profile photo"
                     width="80%"
                     height="80%"
                   />
                 </div>
                 <button
-                  className="button signout"
-                  onClick={() => auth.signOut()}
+                  className={cn([styles.button, styles.signOut])}
+                  onClick={signOut}
                 >
                   Sign out
                 </button>
               </div>
             ) : (
-              !isLoading && (
-                <div className="auth-div">
-                  <button className="button" onClick={signInWithGoogle}>
+              !loading && (
+                <div className={styles.authDiv}>
+                  <button
+                    className={cn([styles.button, styles.signIn])}
+                    onClick={handleSignWithGoogle}
+                  >
                     Sign in
                   </button>
                 </div>
@@ -87,120 +99,6 @@ function Navbar() {
             )}
           </ul>
         </nav>
-        <style jsx>{`
-          .auth-div {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translate(-50%, 0);
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 10px;
-          }
-          .auth-div .button {
-            display: inline-block;
-            border: none;
-            padding: 0.4em 0.6em;
-            color: white;
-            cursor: pointer;
-            font-size: 1.3rem;
-            border-radius: 10px;
-            color: black;
-          }
-
-          .auth-div .photo-profile {
-            width: 46px;
-            height: 46px;
-            cursor: pointer;
-            border: 1px solid #14162b;
-            margin-bottom: 10px;
-            border-radius: 50%;
-          }
-          .auth-div .photo-profile:hover,
-          .auth-div .button:hover {
-            transform: scale(1.1);
-            transition: all 0.2s ease-in-out;
-          }
-
-          .navbar {
-            background-color: #060b26;
-            height: 80px;
-            display: flex;
-            justify-content: start;
-            align-items: center;
-          }
-
-          .nav-brand {
-            cursor: pointer;
-          }
-          .nav-brand:hover {
-            transform: scale(1.1);
-            transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
-          }
-
-          .menu-bars {
-            margin: 0 1rem;
-            font-size: 2rem;
-            background: none;
-          }
-
-          .nav-menu {
-            background-color: #060b26;
-            width: 250px;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            position: fixed;
-            top: 0;
-          }
-
-          .nav-text {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            padding: 8px 0px 8px 8px;
-            list-style: none;
-            height: 60px;
-          }
-
-          .nav-text a {
-            text-decoration: none;
-            color: #f5f5f5;
-            font-size: 18px;
-            width: 95%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            border-radius: 4px;
-            transition: all 0.2s cubic-bezier(0.4, -0.2, 0.66, 1.77);
-          }
-
-          .nav-text a:hover,
-          .nav-text a.active {
-            background-color: #1a83ff;
-          }
-
-          .nav-menu-items {
-            width: 100%;
-          }
-
-          .navbar-toggle {
-            background-color: #060b26;
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: start;
-            align-items: center;
-          }
-
-          span {
-            margin-left: 16px;
-          }
-        `}</style>
       </IconContext.Provider>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
@@ -6,6 +6,8 @@ import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import { firebase } from "../../libs/firebase";
+import Head from "next/head";
+import { AuthContext, useAuth } from "../../contexts/AuthUserContext";
 
 const PlayerMain = dynamic(() => import("../../components/PlayerMain"), {
   ssr: false,
@@ -15,6 +17,7 @@ export default function RoomPage(props) {
   const router = useRouter();
   const [willingToConnect, setWillingToConnect] = useState(false);
   const [joinFormError, setJoinFormError] = useState(false);
+  const [user, setUser] = useState(null);
   const [username, setUsername] = useState("");
 
   const audioEl = useRef();
@@ -22,17 +25,19 @@ export default function RoomPage(props) {
   const { roomId, roomName, roomTopic, roomLanguage, roomLocation } =
     router.query;
 
+  const { authUser, loading } = useAuth();
+
   useEffect(() => {
-    try {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          setUsername(user.displayName);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    if (!loading && !authUser) router.push("/");
+    else setUser(authUser);
+    console.log(user);
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setUsername(user.name);
+    }
+  }, [user]);
 
   function validForm() {
     if (!username) {
@@ -52,6 +57,13 @@ export default function RoomPage(props) {
 
   return (
     <Layout>
+      <Head>
+        <title>Room collaboration | The New Tunisia</title>
+        <meta
+          name="description"
+          content="Debate, connect, sharing, technologies and make ideas , the new tunisia developer community"
+        />
+      </Head>
       {!willingToConnect && (
         <div className="spacing willing-to-connect">
           {/* <Heading size={2}>Join Room</Heading>

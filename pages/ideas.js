@@ -3,7 +3,7 @@ import SelectInput from "../components/SelectInput";
 import Layout from "../components/Layout";
 import Heading from "../components/Heading";
 import Button from "../components/Button";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useContext } from "react";
 import firebase from "../libs/firebase";
 import config from "../config";
 import IdeaList from "../components/IdeaList";
@@ -15,26 +15,30 @@ import {
   createIdea as dbCreateIdea,
   useFirestoreIdeas,
 } from "../hooks/useFirestore";
+import Head from "next/head";
+import { AuthContext } from "../contexts/AuthUserContext";
 
 export default function Ideas() {
   const [ideaTitle, setIdeaTitle] = useState("");
   const [ideaDes, setIdeaDes] = useState("");
   const [ideaTopic, setIdeaTopic] = useState(null);
-  const [user, setUser] = useState(null);
   const [createFormError, setCreateFormError] = useState(false);
   const [ideas, isLoading] = useFirestoreIdeas();
 
-  useEffect(() => {
-    try {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          setUser(user);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  const { state } = useContext(AuthContext);
+  const { user } = state;
+
+  // useEffect(() => {
+  //   try {
+  //     firebase.auth().onAuthStateChanged((user) => {
+  //       if (user) {
+  //         setUser(user);
+  //       }
+  //     });
+  //   } catch (error) {
+  //     // console.log(error);
+  //   }
+  // }, []);
 
   const exploreIdeas = useMemo(() => {
     const now = +new Date() / 1000;
@@ -98,6 +102,14 @@ export default function Ideas() {
   return (
     <Layout>
       <div className="idea-page">
+        <Head>
+          <title>Create Ideas | The New Tunisia</title>
+          <meta
+            name="description"
+            content="Create and manage your  ideas , the new tunisia developer community"
+          />
+        </Head>
+
         <div className="create-idea">
           <Heading size={3}>Create and Manage Ideas</Heading>
           <form onSubmit={createIdea}>

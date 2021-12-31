@@ -1,20 +1,29 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Button from "./Button";
 import Heading from "./Heading";
+import styles from "./home.module.css";
 
 export default function Home() {
   const router = useRouter();
 
   return (
     <div className="home-cover">
-      <div className="home-content">
+      <Head>
+        <title>The New Tunisia</title>
+        <meta
+          name="description"
+          content="The new tunisia developer community, collaborate and innovation ideas"
+        />
+      </Head>
+
+      <div className={styles.homeContent}>
         <Heading size={1}>Digital Transformation Platform</Heading>
         <Heading size={2}>Voice Communication System</Heading>
         <Heading size={2}>Data visualization for Tunisian Economy</Heading>
-        <div className="button">
+        <div className={styles.button}>
           <Button
             outline="granted"
-            big
             fullWidth
             onClick={() =>
               router.push({
@@ -26,24 +35,6 @@ export default function Home() {
           </Button>
         </div>
       </div>
-      <style jsx>{`
-        .home-content {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
-          flex-direction: column;
-          width: 100%;
-          height: 100vh;
-          text-align: center;
-
-          margin-top: -70px;
-        }
-        .home-content .button {
-          width: fit-content;
-          margin-top: 20px;
-        }
-      `}</style>
     </div>
   );
 }

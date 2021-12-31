@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import uuid from "uuid-random";
 
@@ -10,9 +10,16 @@ import Layout from "../components/Layout";
 import SelectInput from "../components/SelectInput";
 
 import { firebase } from "../libs/firebase";
+import Head from "next/head";
+import { useAuth } from "../contexts/AuthUserContext";
 
 export default function CreateRoom() {
   const router = useRouter();
+
+  const [user, setUser] = useState(null);
+  // const [error, setError] = useState(null);
+
+  const { authUser, loading } = useAuth();
 
   const [userName, setUserName] = useState(null);
   const [roomName, setRoomName] = useState("");
@@ -64,15 +71,8 @@ export default function CreateRoom() {
   }
 
   useEffect(() => {
-    try {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          setUserName(user.displayName);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    if (!loading && !authUser) router.push("/");
+    else setUser(authUser);
 
     navigator.permissions
       ?.query({ name: "microphone" })
@@ -81,6 +81,12 @@ export default function CreateRoom() {
       })
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setUserName(user.name);
+    }
+  }, [user]);
 
   function validForm() {
     if (!userName) {
@@ -110,14 +116,14 @@ export default function CreateRoom() {
   }
 
   function createRoom() {
-    console.log(
-      roomId,
-      roomName,
-      userName,
-      roomTopic,
-      roomLanguage,
-      roomLocation
-    );
+    // console.log(
+    //   roomId,
+    //   roomName,
+    //   userName,
+    //   roomTopic,
+    //   roomLanguage,
+    //   roomLocation
+    // );
     if (!validForm()) return;
     const roomId = uuid();
     dbCreateRoom(roomId, {
@@ -148,6 +154,14 @@ export default function CreateRoom() {
   return (
     <Layout>
       <div className="create-room">
+        <Head>
+          <title>Create room | The New Tunisia</title>
+          <meta
+            name="description"
+            content="Create voice rooms, the new tunisia developer community"
+          />
+        </Head>
+
         <div className="spacing">
           <h1 className="brand-create-room">Join Our Digital Community 📢</h1>
           <div>

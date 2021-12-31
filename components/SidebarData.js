@@ -1,45 +1,44 @@
-import React from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
-
+import React from "react";
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import * as IoIcons from "react-icons/io";
+import styles from "./sidebar.module.css";
 
 export const SidebarData = [
   {
-    title: 'Home',
-    path: '/',
+    title: "Home",
+    path: "/",
     icon: <AiIcons.AiFillHome />,
-    cName: 'nav-text'
+    cName: styles.navText,
   },
   {
-    title: 'Debates',
-    path: '/debates',
+    title: "Debates",
+    path: "/debates",
     icon: <IoIcons.IoMdMicrophone />,
-    cName: 'nav-text'
+    cName: styles.navText,
   },
   {
-    title: 'Create room',
-    path: '/createroom',
+    title: "Create room",
+    path: "/createroom",
     icon: <FaIcons.FaPlus />,
-    cName: 'nav-text'
+    cName: styles.navText,
   },
   {
-    title: 'My Ideas',
-    path: '/ideas',
+    title: "My Ideas",
+    path: "/ideas",
     icon: <FaIcons.FaLightbulb />,
-    cName: 'nav-text'
+    cName: styles.navText,
   },
   {
-    title: 'Tunisia Data',
-    path: '/tunisianow',
+    title: "Tunisia Data",
+    path: "/tunisianow",
     icon: <FaIcons.FaGlobeAfrica />,
-    cName: 'nav-text'
+    cName: styles.navText,
   },
   {
-    title: 'About Us',
-    path: '/about',
+    title: "About Us",
+    path: "/about",
     icon: <FaIcons.FaInfo />,
-    cName: 'nav-text'
+    cName: styles.navText,
   },
-
 ];

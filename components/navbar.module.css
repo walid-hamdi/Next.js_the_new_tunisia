@@ -1,0 +1,117 @@
+.authDiv {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.button {
+  display: inline-block;
+  border: none;
+  padding: 0.4em 0.6em;
+  color: white;
+  cursor: pointer;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  color: black;
+}
+
+.signIn {
+  background-color: rgb(226, 75, 75);
+  color: white;
+}
+
+.photoProfile {
+  width: 46px;
+  height: 46px;
+  cursor: pointer;
+  border: 1px solid #14162b;
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+.photoProfile:hover,
+.button:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar {
+  background-color: #060b26;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.navBrand {
+  cursor: pointer;
+}
+.navBrand:hover {
+  transform: scale(1.1);
+  transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
+}
+
+.menuBars {
+  margin: 0 1rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.navMenu {
+  background-color: #060b26;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+}
+
+.navText {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 8px;
+  list-style: none;
+  height: 60px;
+}
+
+.anchor {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 18px;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+  transition: all 0.2s cubic-bezier(0.4, -0.2, 0.66, 1.77);
+}
+
+.anchor:hover,
+.anchor.active {
+  background-color: #1a83ff;
+}
+
+.navMenuItems {
+  width: 100%;
+}
+
+.navbarToggle {
+  background-color: #060b26;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.title {
+  margin-left: 16px;
+}

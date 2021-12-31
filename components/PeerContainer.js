@@ -1,13 +1,12 @@
-export default function PeerContainer ({ context = {} }) {
+export default function PeerContainer({ context = {} }) {
   const {
     roomId,
     roomName,
     currentUser,
     isHost = false,
     host = [],
-    listeners = []
-  } = context
+    listeners = [],
+  } = context;
 
-  console.log(isHost)
-  return <div></div>
+  return <div></div>;
 }

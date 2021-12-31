@@ -1,0 +1,8 @@
+.navText {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 8px;
+  list-style: none;
+  height: 60px;
+}

@@ -1,0 +1,19 @@
+:root {
+  --active-color: #fefffe;
+  --dark-bg: #14162b;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #355c7d;
+  background: -webkit-linear-gradient(to right, #020024, #406f79);
+  background: linear-gradient(to right, #020024, #406f79);
+  color: var(--active-color);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
