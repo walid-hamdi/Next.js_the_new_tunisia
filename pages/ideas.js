@@ -3,7 +3,7 @@ import SelectInput from "../components/SelectInput";
 import Layout from "../components/Layout";
 import Heading from "../components/Heading";
 import Button from "../components/Button";
-import { useEffect, useState, useMemo, useContext } from "react";
+import { useEffect, useState, useMemo } from "react";
 import firebase from "../libs/firebase";
 import config from "../config";
 import IdeaList from "../components/IdeaList";
@@ -16,7 +16,7 @@ import {
   useFirestoreIdeas,
 } from "../hooks/useFirestore";
 import Head from "next/head";
-import { AuthContext } from "../contexts/AuthUserContext";
+import { useAuth } from "../contexts/AuthUserContext";
 
 export default function Ideas() {
   const [ideaTitle, setIdeaTitle] = useState("");
@@ -25,20 +25,14 @@ export default function Ideas() {
   const [createFormError, setCreateFormError] = useState(false);
   const [ideas, isLoading] = useFirestoreIdeas();
 
-  const { state } = useContext(AuthContext);
-  const { user } = state;
+  const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   try {
-  //     firebase.auth().onAuthStateChanged((user) => {
-  //       if (user) {
-  //         setUser(user);
-  //       }
-  //     });
-  //   } catch (error) {
-  //     // console.log(error);
-  //   }
-  // }, []);
+  const { authUser, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !authUser) router.push("/");
+    else setUser(authUser);
+  }, [authUser, loading]);
 
   const exploreIdeas = useMemo(() => {
     const now = +new Date() / 1000;
