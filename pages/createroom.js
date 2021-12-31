@@ -71,8 +71,9 @@ export default function CreateRoom() {
   }
 
   useEffect(() => {
-    if (!loading && !authUser) router.push("/");
-    else setUser(authUser);
+    if (!loading && !authUser) {
+      // router.push("/")
+    } else setUser(authUser);
 
     navigator.permissions
       ?.query({ name: "microphone" })

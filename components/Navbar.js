@@ -20,9 +20,13 @@ function Navbar() {
   const { authUser, loading, signOut, signInWithGoogle } = useAuth();
 
   useEffect(() => {
-    if (!loading && !authUser) router.push("/");
-    else setUser(authUser);
+    if (!loading && !authUser) {
+      router.push("/");
+      showDialogue();
+    } else setUser(authUser);
   }, [authUser, loading]);
+
+  const showDialogue = () => {};
 
   const handleSignWithGoogle = () => {
     setError(null);

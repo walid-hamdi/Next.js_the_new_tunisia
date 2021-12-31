@@ -4,7 +4,6 @@ import Layout from "../components/Layout";
 import Heading from "../components/Heading";
 import Button from "../components/Button";
 import { useEffect, useState, useMemo } from "react";
-import firebase from "../libs/firebase";
 import config from "../config";
 import IdeaList from "../components/IdeaList";
 import { Loading } from "../components/Loading";
@@ -30,8 +29,10 @@ export default function Ideas() {
   const { authUser, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading && !authUser) router.push("/");
-    else setUser(authUser);
+    if (!loading && !authUser) {
+      // router.push("/")
+    } else setUser(authUser);
+    // return ()=>
   }, [authUser, loading]);
 
   const exploreIdeas = useMemo(() => {

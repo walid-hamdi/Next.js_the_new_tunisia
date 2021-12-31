@@ -14,10 +14,9 @@ export default function RoomList({ rooms }) {
   const { authUser, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading && !authUser) router.push("/");
-    else setUser(authUser);
-
-    console.log(authUser);
+    if (!loading && !authUser) {
+      // router.push("/")
+    } else setUser(authUser);
   }, [authUser, loading]);
 
   // http://localhost:3000/room/e9850f1e-fcd7-456b-89f4-012a69d652a7

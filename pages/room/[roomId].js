@@ -27,8 +27,9 @@ export default function RoomPage(props) {
   const { authUser, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading && !authUser) router.push("/");
-    else setUser(authUser);
+    if (!loading && !authUser) {
+      // router.push("/")
+    } else setUser(authUser);
     console.log(user);
   }, []);
 
