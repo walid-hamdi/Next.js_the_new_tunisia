@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { FiUser, FiHome, FiGlobe, FiMapPin, FiBookOpen } from "react-icons/fi";

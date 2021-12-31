@@ -7,10 +7,10 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { Loading } from "./Loading";
-import { useAuth } from "../contexts/AuthUserContext";
 
 import styles from "./navbar.module.css";
 import cn from "classcat";
+import { useAuth } from "../contexts/AuthUserContext";
 
 function Navbar() {
   const router = useRouter();
