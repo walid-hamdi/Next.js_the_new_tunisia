@@ -2,11 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
-import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import Heading from "../../components/Heading";
 import Head from "next/head";
 import { useAuth } from "../../contexts/AuthUserContext";
+
+import styles from "../../styles/roompage.module.css";
 
 const PlayerMain = dynamic(() => import("../../components/PlayerMain"), {
   ssr: false,
@@ -56,7 +57,7 @@ export default function RoomPage(props) {
   }
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Room collaboration | The New Tunisia</title>
         <meta
@@ -65,7 +66,7 @@ export default function RoomPage(props) {
         />
       </Head>
       {!willingToConnect && (
-        <div className="spacing willing-to-connect">
+        <div className={styles.willingToConnect}>
           {/* <Heading size={2}>Join Room</Heading>
             <div>
               <Input placeholder="Name" onChange={e => setUserName(e.target.value)} />
@@ -82,7 +83,9 @@ export default function RoomPage(props) {
             controls
           />
           <div>
-            {joinFormError && <div className="error">{joinFormError}</div>}
+            {joinFormError && (
+              <div className={styles.error}>{joinFormError}</div>
+            )}
             <Button big onClick={joinRoom}>
               Join Now
             </Button>
@@ -100,24 +103,6 @@ export default function RoomPage(props) {
           isHost={false}
         />
       )}
-      <style jsx>{`
-        .willing-to-connect {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-        }
-
-        .spacing > * {
-          margin-top: 10px;
-        }
-        .error {
-          font-size: 12px;
-          text-align: center;
-          margin: 6px 0;
-        }
-      `}</style>
-    </Layout>
+    </>
   );
 }

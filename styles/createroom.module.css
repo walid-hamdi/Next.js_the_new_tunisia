@@ -1,0 +1,16 @@
+.createRoom {
+  padding: 1rem;
+  /* width: 330px; */
+  /* margin: auto; */
+}
+
+.brandCreateRoom {
+  /* //  transform: rotate(2deg); */
+  text-align: center;
+  font-size: 3.5rem;
+}
+.error {
+  font-size: 12px;
+  text-align: center;
+  margin: 6px 0;
+}

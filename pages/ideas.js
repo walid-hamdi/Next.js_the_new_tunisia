@@ -10,6 +10,8 @@ import { Loading } from "../components/Loading";
 
 import uuid from "uuid-random";
 
+import styles from "../styles/ideas.module.css";
+
 import {
   createIdea as dbCreateIdea,
   useFirestoreIdeas,
@@ -95,130 +97,81 @@ export default function Ideas() {
   }
 
   return (
-    <Layout>
-      <div className="idea-page">
-        <Head>
-          <title>Create Ideas | The New Tunisia</title>
-          <meta
-            name="description"
-            content="Create and manage your  ideas , the new tunisia developer community"
-          />
-        </Head>
+    <div className={styles.ideaPage}>
+      <Head>
+        <title>Create Ideas | The New Tunisia</title>
+        <meta
+          name="description"
+          content="Create and manage your  ideas , the new tunisia developer community"
+        />
+      </Head>
 
-        <div className="create-idea">
-          <Heading size={3}>Create and Manage Ideas</Heading>
-          <form onSubmit={createIdea}>
-            <div style={{ marginTop: 20 }}>
-              <Input
-                onChange={(e) => setIdeaTitle(e.target.value.toUpperCase())}
-                placeholder="Idea title"
-              />
-            </div>
-
-            <div>
-              <textarea
-                onChange={(e) => setIdeaDes(e.target.value)}
-                placeholder="Idea description"
-              ></textarea>
-            </div>
-
-            <div>
-              <SelectInput
-                placeholder="Idea Topic"
-                onChange={(e) => setIdeaTopic(e.target.value)}
-                defaultValue="default"
-              >
-                <option value="default" disabled>
-                  Choose the idea topic
-                </option>
-                <option value="Medical Transformation">
-                  Medical Transformation
-                </option>
-                <option value="Agriculture Transformation">
-                  Agriculture Transformation
-                </option>
-                <option value="Administration Transformation">
-                  Administration Transformation
-                </option>
-                <option value="Education Transformation">
-                  Education Transformation
-                </option>
-                <option value="Media Transformation">
-                  Media Transformation
-                </option>
-
-                <option value="other">Other</option>
-              </SelectInput>
-            </div>
-
-            {createFormError && <div className="error">{createFormError}</div>}
-
-            <div style={{ marginTop: 20, width: "fit-content" }}>
-              <Button outline="granted" type="submit">
-                Create Idea
-              </Button>
-            </div>
-          </form>
-        </div>
-
-        {config.firebase.enabled && (
-          <div className="spacing display-idea" style={{ marginTop: 30 }}>
-            {isLoading && <Loading />}
-
-            {!isLoading && exploreIdeas.length === 0 && (
-              <div>You haven't shared any idea yet!</div>
-            )}
-
-            <IdeaList ideas={exploreIdeas} />
+      <div className={styles.createIdea}>
+        <Heading size={3}>Create and Manage Ideas</Heading>
+        <form onSubmit={createIdea}>
+          <div style={{ marginTop: 20 }}>
+            <Input
+              onChange={(e) => setIdeaTitle(e.target.value.toUpperCase())}
+              placeholder="Idea title"
+            />
           </div>
-        )}
 
-        <style jsx>
-          {`
-            textarea {
-              resize: none;
-              width: 100%;
-              height: 150px;
-              border: none;
-              background-color: var(--dark-bg);
-              border-radius: 4px;
-              // font-family: var(--body-font);
-              font-size: 15px;
-              font-weight: 500;
-              padding: 0 20px;
-              box-shadow: 0 0 0 2px rgb(134 140 160 / 2%);
-              background-size: 14px;
-              line-height: 40px;
-              background-repeat: no-repeat;
-              background-position: 16px 48%;
-              color: var(--active-color);
-              outline: none;
-              margin-bottom: 5px;
-            }
+          <div>
+            <textarea
+              className={styles.textarea}
+              onChange={(e) => setIdeaDes(e.target.value)}
+              placeholder="Idea description"
+            ></textarea>
+          </div>
 
-            .idea-page {
-              margin-top: 2rem;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              gap: 2rem;
-              width: 100%;
-            }
-            .create-idea {
-              width: 400px;
-            }
-            .display-idea {
-              width: 100%;
-            }
+          <div>
+            <SelectInput
+              placeholder="Idea Topic"
+              onChange={(e) => setIdeaTopic(e.target.value)}
+              defaultValue="default"
+            >
+              <option value="default" disabled>
+                Choose the idea topic
+              </option>
+              <option value="Medical Transformation">
+                Medical Transformation
+              </option>
+              <option value="Agriculture Transformation">
+                Agriculture Transformation
+              </option>
+              <option value="Administration Transformation">
+                Administration Transformation
+              </option>
+              <option value="Education Transformation">
+                Education Transformation
+              </option>
+              <option value="Media Transformation">Media Transformation</option>
 
-            .error {
-              font-size: 12px;
-              text-align: center;
-              margin: 6px 0;
-            }
-          `}
-        </style>
+              <option value="other">Other</option>
+            </SelectInput>
+          </div>
+
+          {createFormError && <div className="error">{createFormError}</div>}
+
+          <div style={{ marginTop: 20, width: "fit-content" }}>
+            <Button outline="granted" avoid type="submit">
+              Create Idea
+            </Button>
+          </div>
+        </form>
       </div>
-    </Layout>
+
+      {config.firebase.enabled && (
+        <div className="spacing display-idea" style={{ marginTop: 30 }}>
+          {isLoading && <Loading />}
+
+          {!isLoading && exploreIdeas.length === 0 && (
+            <div>You haven't shared any idea yet!</div>
+          )}
+
+          <IdeaList ideas={exploreIdeas} />
+        </div>
+      )}
+    </div>
   );
 }

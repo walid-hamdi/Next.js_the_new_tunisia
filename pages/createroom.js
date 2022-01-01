@@ -6,12 +6,12 @@ import { createRoom as dbCreateRoom } from "../hooks/useFirestore";
 
 import Button from "../components/Button";
 import Input from "../components/Input";
-import Layout from "../components/Layout";
 import SelectInput from "../components/SelectInput";
 
-import { firebase } from "../libs/firebase";
-import Head from "next/head";
 import { useAuth } from "../contexts/AuthUserContext";
+
+import styles from "../styles/createroom.module.css";
+import Head from "next/head";
 
 export default function CreateRoom() {
   const router = useRouter();
@@ -153,8 +153,8 @@ export default function CreateRoom() {
   }
 
   return (
-    <Layout>
-      <div className="create-room">
+    <>
+      <div className={styles.createRoom}>
         <Head>
           <title>Create room | The New Tunisia</title>
           <meta
@@ -163,8 +163,10 @@ export default function CreateRoom() {
           />
         </Head>
 
-        <div className="spacing">
-          <h1 className="brand-create-room">Join Our Digital Community 📢</h1>
+        <div className={styles.spacing}>
+          <h1 className={styles.brandCreateRoom}>
+            Join Our Digital Community 📢
+          </h1>
           <div>
             <SelectInput
               onChange={(e) => setRoomTopic(e.target.value)}
@@ -225,7 +227,9 @@ export default function CreateRoom() {
             </SelectInput>
           </div>
         </div>
-        {createFormError && <div className="error">{createFormError}</div>}
+        {createFormError && (
+          <div className={styles.error}>{createFormError}</div>
+        )}
         <div style={{ marginTop: 20 }}>
           <Button
             success={micAccess === "granted"}
@@ -247,26 +251,7 @@ export default function CreateRoom() {
             Create Room
           </Button>
         </div>
-
-        <style jsx>{`
-          .create-room {
-            padding: 20px;
-            width: 330px;
-            margin: auto;
-          }
-
-          .brand-create-room {
-            //  transform: rotate(2deg);
-            text-align: center;
-            font-size: 60;
-          }
-          .error {
-            font-size: 12px;
-            text-align: center;
-            margin: 6px 0;
-          }
-        `}</style>
       </div>
-    </Layout>
+    </>
   );
 }

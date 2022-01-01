@@ -2,11 +2,14 @@ import Heading from "../components/Heading";
 import Button from "../components/Button";
 import { deleteIdea } from "../hooks/useFirestore";
 
+import styles from "./idealist.module.css";
+
 export default function IdeaList({ ideas }) {
   return (
-    <div className="ideas">
+    <div className={styles.ideas}>
+      {ideas.length !== 0 ? <Heading size={3}>List our ideas</Heading> : null}
       {ideas.map((idea, index) => (
-        <div key={index} className="box">
+        <div key={index} className={styles.box}>
           <Heading size={2}>{idea.ideaTitle}</Heading>
           <p>{idea.ideaTopic}</p>
 
@@ -21,25 +24,6 @@ export default function IdeaList({ ideas }) {
           </Button>
         </div>
       ))}
-      <style jsx>{`
-        .ideas {
-          display: flex;
-          gap: 1rem;
-        }
-
-        .box {
-          border: 1px solid white;
-          padding: 1rem;
-          width: 30%;
-
-          cursor: pointer;
-        }
-
-        .box:hover {
-          transform: scale(1.1);
-          transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
-        }
-      `}</style>
     </div>
   );
 }

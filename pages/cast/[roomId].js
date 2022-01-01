@@ -15,7 +15,7 @@ function RoomPage() {
     router.query;
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>Room collaboration | The New Tunisia</title>
         <meta
@@ -33,7 +33,7 @@ function RoomPage() {
         roomLocation={roomLocation}
         isHost={true}
       />
-    </Layout>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -8,8 +8,8 @@ import config from "../config";
 
 import { useFirestoreRooms } from "../hooks/useFirestore";
 import Button from "../components/Button";
-import Layout from "../components/Layout";
 import { Loading } from "../components/Loading";
+import styles from "../styles/debates.module.css";
 
 export default function Debates() {
   const router = useRouter();
@@ -23,7 +23,7 @@ export default function Debates() {
   }, [rooms]);
 
   return (
-    <Layout>
+    <>
       <div style={{ marginTop: 20, width: "fit-content" }}>
         <Head>
           <title>Debates | The New Tunisia</title>
@@ -36,6 +36,7 @@ export default function Debates() {
         <Button
           outline="granted"
           fullWidth
+          big
           onClick={() => {
             router.push({
               pathname: "/createroom",
@@ -45,9 +46,9 @@ export default function Debates() {
           Create Your Own Room
         </Button>
       </div>
-      <div>
+      <div className={styles.roomCard}>
         {config.firebase.enabled && (
-          <div className="spacing" style={{ marginTop: 30 }}>
+          <div className={styles.spacing} style={{ marginTop: 30 }}>
             <Heading size={2}>Available Rooms</Heading>
             {isLoading && <Loading />}
 
@@ -55,19 +56,9 @@ export default function Debates() {
               <div>No rooms available</div>
             )}
             <RoomList rooms={exploreRooms} />
-            <style jsx>{`
-              .spacing > * {
-                margin-top: 10px;
-              }
-              .error {
-                font-size: 12px;
-                text-align: center;
-                margin: 6px 0;
-              }
-            `}</style>
           </div>
         )}
       </div>
-    </Layout>
+    </>
   );
 }

@@ -1,0 +1,17 @@
+.ideas {
+  display: flex;
+  gap: 1rem;
+}
+
+.box {
+  border: 1px solid white;
+  padding: 1rem;
+  width: 30%;
+
+  cursor: pointer;
+}
+
+.box:hover {
+  transform: scale(1.1);
+  transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
+}

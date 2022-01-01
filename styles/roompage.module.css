@@ -1,0 +1,16 @@
+.willingToConnect {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.spacing > * {
+  margin-top: 10px;
+}
+.error {
+  font-size: 12px;
+  text-align: center;
+  margin: 6px 0;
+}

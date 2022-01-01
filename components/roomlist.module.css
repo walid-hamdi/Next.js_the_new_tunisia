@@ -1,0 +1,58 @@
+.rooms {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  /* flex-wrap: wrap;
+  gap: 1rem; */
+}
+
+.roomLinkWrapper {
+  color: white;
+  border: white;
+  text-decoration: none;
+  background-color: #14162b;
+  margin: 0.7rem 0 0 0;
+  padding: 1rem;
+  border-radius: 15px;
+  width: 100%;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  gap: 2rem;
+  padding: 1.5rem;
+}
+.roomLinkWrapper:hover {
+  transform: scale(1.1);
+  transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
+}
+
+.roomContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.roomTopicWrapper {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 0.7rem;
+}
+.roomTopic {
+  display: inline-block;
+  width: fit-content;
+  font-size: 1.7rem;
+}
+
+.joinBadge {
+  display: inline-block;
+  background-color: black;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 9999px;
+}

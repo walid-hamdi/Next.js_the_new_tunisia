@@ -2,6 +2,9 @@
   --active-color: #fefffe;
   --dark-bg: #14162b;
 }
+html {
+  font-size: 62.5%;
+}
 
 body {
   font-family: "Poppins", sans-serif;
@@ -12,6 +15,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-size: 2rem;
 }
 
 * {

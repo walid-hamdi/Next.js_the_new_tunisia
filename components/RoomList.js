@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { FiUser, FiHome, FiGlobe, FiMapPin, FiBookOpen } from "react-icons/fi";
 import { useAuth } from "../contexts/AuthUserContext";
 
+import styles from "./roomlist.module.css";
+
 export default function RoomList({ rooms }) {
   const router = useRouter();
 
@@ -23,7 +25,7 @@ export default function RoomList({ rooms }) {
   // http://localhost:3000/cast/e9850f1e-fcd7-456b-89f4-012a69d652a7
 
   return (
-    <div className="rooms">
+    <div className={styles.rooms}>
       {rooms.map((room) => (
         <Link
           key={room.roomId}
@@ -31,71 +33,39 @@ export default function RoomList({ rooms }) {
             pathname: user ? `/room/${room.roomId}` : `/`,
           }}
         >
-          <a>
-            <div>
-              <FiHome style={{ marginRight: "6px" }} />
-              {room.roomName}
-            </div>
-            <div>
-              {room.users || 0} <FiUser style={{ marginLeft: "6px" }} />
-            </div>
-            <div>
-              <FiBookOpen style={{ marginRight: "6px" }} /> {room.roomTopic}
-            </div>
-
-            <div>
-              <FiGlobe style={{ marginRight: "6px" }} />
-              {room.roomLanguage}
+          <a className={styles.roomLinkWrapper}>
+            <div className={styles.roomContainer}>
+              <div>
+                <FiHome style={{ marginRight: "6px" }} />
+                {room.roomName}
+              </div>
+              <div>
+                {room.users || 0} <FiUser style={{ marginLeft: "6px" }} />
+              </div>
             </div>
 
-            <div>
-              <FiMapPin style={{ marginRight: "6px" }} />
-              {room.roomLocation}
+            <div className={styles.roomTopicWrapper}>
+              <FiBookOpen />
+              <span className={styles.roomTopic}> {room.roomTopic}</span>
             </div>
 
-            <span className="join-badge">
-              {user ? "Join Now" : "Please Sign to join"}
+            <div className={styles.roomContainer}>
+              <div>
+                <FiGlobe style={{ marginRight: "6px" }} />
+                {room.roomLanguage}
+              </div>
+              <div>
+                <FiMapPin style={{ marginRight: "6px" }} />
+                {room.roomLocation}
+              </div>
+            </div>
+
+            <span className={styles.joinBadge}>
+              {user ? "Join Now" : "Please Sign in to join"}
             </span>
           </a>
         </Link>
       ))}
-      <style jsx>{`
-        .rooms {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 1rem;
-        }
-
-        .join-badge {
-          display: inline-block;
-          background-color: black;
-          padding: 0.4em 0.7em;
-        }
-        div a {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 1rem;
-
-          color: white;
-          border: white;
-          text-decoration: none;
-          background-color: #14162b;
-          margin: 0.7rem 0 0 0;
-          padding: 1rem;
-          border-radius: 15px;
-          width: 260px;
-          cursor: pointer;
-        }
-        .div a:hover {
-          transform: scale(1.1);
-          transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
-        }
-        a {
-          display: flex;
-          justify-content: space-between;
-          padding: 20px 0;
-        }
-      `}</style>
     </div>
   );
 }
