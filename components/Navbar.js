@@ -12,6 +12,7 @@ import cn from "classcat";
 
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthUserContext";
+import Heading from "./Heading";
 
 function Navbar() {
   const router = useRouter();
@@ -71,7 +72,10 @@ function Navbar() {
           <nav className={styles.navMenu}>
             <ul className={styles.navMenuItems}>
               <div className={styles.navBrand}>
-                <Link href="/">
+                <Heading style={{ paddingTop: "3rem" }} size={1}>
+                  THE NEW TUNISIA
+                </Heading>
+                {/* <Link href="/">
                   <a className={styles.logoWrapper}>
                     <Image
                       src="/images/logo.svg"
@@ -79,7 +83,7 @@ function Navbar() {
                       layout="fill"
                     />
                   </a>
-                </Link>
+                </Link> */}
               </div>
               {user && (
                 <span style={{ display: "block", marginBottom: "30px" }}>

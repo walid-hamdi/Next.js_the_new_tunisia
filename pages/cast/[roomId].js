@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
-import Layout from "../../components/Layout";
 import Head from "next/head";
 
 const PlayerMain = dynamic(() => import("../../components/PlayerMain"), {

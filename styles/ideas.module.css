@@ -1,13 +1,7 @@
-.ideaPage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-}
 .createIdea {
-  /* width: 400px; */
+}
+.headingCreateIdea {
+  padding: 2rem 0;
 }
 .displayIdea {
   width: 100%;

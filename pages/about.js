@@ -5,7 +5,7 @@ import styles from "../styles/about.module.css";
 
 export default function About() {
   return (
-    <div>
+    <>
       <Head>
         <title>About Us | The New Tunisia</title>
         <meta
@@ -14,7 +14,7 @@ export default function About() {
         />
       </Head>
       <div className={styles.aboutContainer}>
-        <Heading size={1}>About Us</Heading>
+        <Heading size={3}>About Us</Heading>
         <p>
           We create this platform for collaboration and communication to come up
           with new ideas
@@ -41,6 +41,6 @@ export default function About() {
           </li>
         </ul>
       </div>
-    </div>
+    </>
   );
 }

@@ -23,7 +23,7 @@ export default function Debates() {
   }, [rooms]);
 
   return (
-    <div>
+    <>
       <Head>
         <title>Debates | The New Tunisia</title>
         <meta
@@ -61,6 +61,6 @@ export default function Debates() {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

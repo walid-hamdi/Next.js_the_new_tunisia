@@ -1,17 +1,13 @@
 .createRoom {
-  /* padding: 3rem 0; */
-  padding-bottom: 5rem;
+  padding-bottom: 10rem;
   overflow: auto;
   height: 100%;
-
-  /* width: 330px; */
-  /* margin: auto; */
 }
 
 .brandCreateRoom {
   /* //  transform: rotate(2deg); */
   text-align: center;
-  font-size: 3.5rem;
+  padding: 3rem 0;
 }
 .error {
   font-size: 12px;

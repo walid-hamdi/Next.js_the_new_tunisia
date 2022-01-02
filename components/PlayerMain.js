@@ -17,6 +17,8 @@ import ActionGroup from "./ActionGroup";
 import Button from "./Button";
 import Container from "./Container";
 
+import styles from "./playermain.module.css";
+
 export default function PlayerMain({
   roomId,
   userName,
@@ -134,13 +136,6 @@ function Main({ user }) {
             <Button as="a">Go Back</Button>
           </Link>
         </div>
-        <style jsx>{`
-          div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-        `}</style>
       </Container>
     );
   }
@@ -153,9 +148,9 @@ function Main({ user }) {
   }
 
   return (
-    <div className="player-container">
+    <div className={styles.playerContainer}>
       <Container>
-        <div className="flex">
+        <div className={styles.roomHeader}>
           <Button small success>
             Owner : {user.name}
           </Button>
@@ -167,8 +162,8 @@ function Main({ user }) {
       </Container>
       <StreamPlayer />
       <ConnectedPeersList shareLink={isHost ? shareLink : null} />
-      <ActionGroup style={{ justifyContent: "space-between" }}>
-        <div>
+      <ActionGroup className={styles.actionGroup}>
+        <div className={styles.actionBar}>
           <Button avoid onClick={onLeave}>
             Leave
           </Button>
@@ -221,25 +216,6 @@ function Main({ user }) {
           </a>
         </Link>
       </ActionGroup>
-
-      <style jsx>{`
-        .flex {
-          display: flex;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        .player-container {
-          cursor: pointer;
-          margin: auto;
-          // width:100%;
-          height: 85vh;
-          background-color: #14162b;
-          border-radius: 10px;
-          padding: 1rem;
-          position: relative;
-        }
-      `}</style>
     </div>
   );
 }

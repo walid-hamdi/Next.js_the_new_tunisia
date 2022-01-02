@@ -24,7 +24,7 @@
   padding: 1.5rem;
 }
 .roomLinkWrapper:hover {
-  transform: scale(1.1);
+  transform: scale(1.01);
   transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
 }
 

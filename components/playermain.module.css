@@ -1,0 +1,26 @@
+.playerMain {
+  cursor: pointer;
+  margin: auto;
+  /* // width:100%; */
+  height: 85vh;
+  background-color: #14162b;
+  border-radius: 10px;
+  padding: 1rem;
+  position: relative;
+}
+
+.roomHeader {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.actionGroup {
+  justify-content: "space-between";
+}
+
+.actionBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

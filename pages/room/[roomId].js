@@ -71,9 +71,8 @@ export default function RoomPage(props) {
             <div>
               <Input placeholder="Name" onChange={e => setUserName(e.target.value)} />
             </div> */}
-          <Heading size={1}>
-            Please be responsible after you join because there are serious rules
-            for bad people (BE POLITE , BE ACTIVE)
+          <Heading size={3}>
+            Have a good conversation (BE POLITE , BE ACTIVE)
           </Heading>
 
           <audio

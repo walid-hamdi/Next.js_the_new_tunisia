@@ -6,7 +6,7 @@ import styles from "../styles/tunisianow.module.css";
 
 export default function Tunisianow() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Tunisia State | The New Tunisia</title>
         <meta
@@ -15,17 +15,16 @@ export default function Tunisianow() {
         />
       </Head>
 
-      <Heading size={1}>Tunisia Recent Data</Heading>
-      {/* <Heading size={2}>
-        We are using and analysing data and for having clear idea of which path
-        we go on.
-      </Heading>
-      <p>Knowing the issues inside sectors</p> */}
+      <div className={styles.container}>
+        <Heading size={3} className={styles.headingTunisia}>
+          Tunisia Recent Data
+        </Heading>
 
-      <PieChart />
-      <PieChart />
-      <PieChart />
-      <PieChart />
-    </div>
+        <PieChart />
+        <PieChart />
+        <PieChart />
+        <PieChart />
+      </div>
+    </>
   );
 }

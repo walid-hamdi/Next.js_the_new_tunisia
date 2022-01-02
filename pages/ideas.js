@@ -97,7 +97,7 @@ export default function Ideas() {
   }
 
   return (
-    <div className={styles.ideaPage}>
+    <>
       <Head>
         <title>Create Ideas | The New Tunisia</title>
         <meta
@@ -107,7 +107,9 @@ export default function Ideas() {
       </Head>
 
       <div className={styles.createIdea}>
-        <Heading size={3}>Create and Manage Ideas</Heading>
+        <Heading size={3} className={styles.headingCreateIdea}>
+          Create and Manage Ideas
+        </Heading>
         <form onSubmit={createIdea}>
           <div style={{ marginTop: 20 }}>
             <Input
@@ -172,6 +174,6 @@ export default function Ideas() {
           <IdeaList ideas={exploreIdeas} />
         </div>
       )}
-    </div>
+    </>
   );
 }

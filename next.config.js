@@ -1,5 +1,7 @@
 // Use the SentryWebpack plugin to upload the source maps during build step
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
+const withPWA = require("next-pwa");
+
 const {
   NEXT_PUBLIC_SENTRY_DSN: SENTRY_DSN,
   SENTRY_ORG,
@@ -21,7 +23,14 @@ const COMMIT_SHA =
 process.env.SENTRY_DSN = SENTRY_DSN;
 const basePath = "";
 
-module.exports = {
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    disable: process.env.NODE_ENV === "development",
+  },
+
   images: {
     domains: ["lh3.googleusercontent.com"],
   },
@@ -88,4 +97,4 @@ module.exports = {
     return config;
   },
   basePath,
-};
+});
