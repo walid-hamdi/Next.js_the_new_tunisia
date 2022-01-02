@@ -8,7 +8,7 @@ export default function Index() {
   const router = useRouter();
 
   return (
-    <div className="home-cover">
+    <div>
       <Head>
         <title>The New Tunisia</title>
         <meta
@@ -17,10 +17,12 @@ export default function Index() {
         />
       </Head>
 
-      <div className={styles.homeContent}>
-        <Heading size={1}>Digital Transformation Platform</Heading>
-        <Heading size={2}>Voice Communication System</Heading>
-        <Heading size={2}>Data visualization for Tunisian Economy</Heading>
+      <div className={styles.homeContainer}>
+        <div className={styles.headings}>
+          <Heading size={3}>Digital Transformation Platform</Heading>
+          <Heading size={2}>Voice Communication System</Heading>
+          <Heading size={2}>Data visualization for Tunisian Economy</Heading>
+        </div>
         <div className={styles.button}>
           <Button
             outline="granted"

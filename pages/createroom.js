@@ -117,14 +117,6 @@ export default function CreateRoom() {
   }
 
   function createRoom() {
-    // console.log(
-    //   roomId,
-    //   roomName,
-    //   userName,
-    //   roomTopic,
-    //   roomLanguage,
-    //   roomLocation
-    // );
     if (!validForm()) return;
     const roomId = uuid();
     dbCreateRoom(roomId, {
@@ -153,7 +145,7 @@ export default function CreateRoom() {
   }
 
   return (
-    <>
+    <div>
       <div className={styles.createRoom}>
         <Head>
           <title>Create room | The New Tunisia</title>
@@ -167,6 +159,7 @@ export default function CreateRoom() {
           <h1 className={styles.brandCreateRoom}>
             Join Our Digital Community 📢
           </h1>
+
           <div>
             <SelectInput
               onChange={(e) => setRoomTopic(e.target.value)}
@@ -252,6 +245,6 @@ export default function CreateRoom() {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

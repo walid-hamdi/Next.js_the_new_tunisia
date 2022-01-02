@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { SidebarData } from "./SidebarData";
-import * as FaIcons from "react-icons/fa";
 import { IconContext } from "react-icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,8 +9,9 @@ import { Loading } from "./Loading";
 
 import styles from "./navbar.module.css";
 import cn from "classcat";
-import { useAuth } from "../contexts/AuthUserContext";
+
 import Button from "./Button";
+import { useAuth } from "../contexts/AuthUserContext";
 
 function Navbar() {
   const router = useRouter();
@@ -24,6 +24,8 @@ function Navbar() {
   useEffect(() => {
     if (!loading && !authUser) {
       router.push("/");
+      setAppearNavbar(false);
+      setUser(null);
       showDialogue();
     } else setUser(authUser);
   }, [authUser, loading]);
@@ -32,12 +34,15 @@ function Navbar() {
 
   const handleSignWithGoogle = () => {
     setError(null);
-    console.log("handleSignWithGoogle");
-    signInWithGoogle();
+    try {
+      signInWithGoogle();
+    } catch (err) {
+      setError(err);
+    }
   };
 
   return (
-    <>
+    <div>
       <div
         className={cn([
           styles.icon,
@@ -67,17 +72,20 @@ function Navbar() {
             <ul className={styles.navMenuItems}>
               <div className={styles.navBrand}>
                 <Link href="/">
-                  <a>
+                  <a className={styles.logoWrapper}>
                     <Image
                       src="/images/logo.svg"
                       alt="Picture of logo"
-                      width={180}
-                      height={150}
+                      layout="fill"
                     />
                   </a>
                 </Link>
               </div>
-
+              {user && (
+                <span style={{ display: "block", marginBottom: "30px" }}>
+                  📢 Hey {user.name} 📢
+                </span>
+              )}
               {SidebarData.map((item, index) => {
                 return (
                   <li
@@ -100,26 +108,27 @@ function Navbar() {
                   </li>
                 );
               })}
-              {!loading && <Loading />}
+              {loading && <Loading />}
+
               {!loading && user ? (
                 <div className={styles.profileContainer}>
                   <div>
-                    <Button outline="granted" small>
+                    <Button outline="granted" small onClick={signOut}>
                       Sign Out
                     </Button>
                   </div>
 
                   <div className={styles.photoProfile}>
+                    {/* <p>Welcome {user.name}</p> */}
                     <Image
-                      src={"/images/avatar.jpg"}
+                      src={user.photoUrl || "/images/avatar.jpg"}
                       alt="Profile photo"
-                      width="80%"
-                      height="80%"
+                      layout="fill"
                     />
                   </div>
                 </div>
               ) : (
-                loading && (
+                !loading && (
                   <div className={styles.signInWrapper}>
                     <Button
                       outline="granted"
@@ -136,7 +145,7 @@ function Navbar() {
           </nav>
         </IconContext.Provider>
       </div>
-    </>
+    </div>
   );
 }
 

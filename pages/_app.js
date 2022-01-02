@@ -8,10 +8,10 @@ init();
 export default function App({ Component, pageProps, err }) {
   // Workaround for https://github.com/vercel/next.js/issues/8592
   return (
-    <Layout>
-      <AuthUserProvider>
+    <AuthUserProvider>
+      <Layout>
         <Component {...pageProps} err={err} />
-      </AuthUserProvider>
-    </Layout>
+      </Layout>
+    </AuthUserProvider>
   );
 }

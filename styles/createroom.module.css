@@ -1,5 +1,9 @@
 .createRoom {
-  padding: 1rem;
+  /* padding: 3rem 0; */
+  padding-bottom: 5rem;
+  overflow: auto;
+  height: 100%;
+
   /* width: 330px; */
   /* margin: auto; */
 }

@@ -1,5 +1,16 @@
-.spacing > * {
-  margin-top: 10px;
+.roomContainer {
+  /* background-color: red; */
+  padding: 1rem;
+  padding-bottom: 5rem;
+  width: 100vw;
+}
+
+.buttonCreateRoom {
+  margin-top: 3rem;
+}
+
+.spacing {
+  margin: 2rem 0;
 }
 .error {
   font-size: 12px;

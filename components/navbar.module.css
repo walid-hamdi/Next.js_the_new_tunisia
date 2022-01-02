@@ -101,41 +101,15 @@
   left: 18px;
   bottom: 6px;
 }
-/* 
-.authDiv {
-  position: absolute;
-  bottom: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-} */
-
-/* .button {
-  display: inline-block;
-  border: none;
-  padding: 0.4em 0.6em;
-  color: white;
-  cursor: pointer;
-  font-size: 1.3rem;
-  border-radius: 10px;
-  color: black;
-} */
-
-/* .signIn {
-  background-color: rgb(226, 75, 75);
-  color: white;
-} */
 
 .photoProfile {
+  position: relative;
   width: 40px;
   height: 40px;
   cursor: pointer;
-  /* border: 1px solid #14162b; */
-  /* margin-bottom: 10px; */
+
   border-radius: 10000000px;
-  overflow: auto;
+  overflow: hidden;
 }
 .photoProfile:hover,
 .button:hover {
@@ -154,6 +128,13 @@
 .navBrand {
   cursor: pointer;
 }
+.logoWrapper {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
+
 .navBrand:hover {
   transform: scale(1.1);
   transition: all 0.2s cubic-bezier(0.17, 0.67, 0.66, 1.77);
@@ -172,7 +153,8 @@
 
   /* width: 250px; */
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  overflow: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,6 +202,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 3rem;
   margin-top: 2rem;
 }
 

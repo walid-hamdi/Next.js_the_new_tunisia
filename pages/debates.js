@@ -23,42 +23,44 @@ export default function Debates() {
   }, [rooms]);
 
   return (
-    <>
-      <div style={{ marginTop: 20, width: "fit-content" }}>
-        <Head>
-          <title>Debates | The New Tunisia</title>
-          <meta
-            name="description"
-            content="Talk with others voice conversations, the new tunisia developer community"
-          />
-        </Head>
+    <div>
+      <Head>
+        <title>Debates | The New Tunisia</title>
+        <meta
+          name="description"
+          content="Talk with others voice conversations, the new tunisia developer community"
+        />
+      </Head>
 
-        <Button
-          outline="granted"
-          fullWidth
-          big
-          onClick={() => {
-            router.push({
-              pathname: "/createroom",
-            });
-          }}
-        >
-          Create Your Own Room
-        </Button>
-      </div>
-      <div className={styles.roomCard}>
+      <div className={styles.roomContainer}>
+        <div className={styles.buttonCreateRoom}>
+          <Button
+            outline="granted"
+            fullWidth
+            big
+            onClick={() => {
+              router.push({
+                pathname: "/createroom",
+              });
+            }}
+          >
+            Create Your Own Room
+          </Button>
+        </div>
+
         {config.firebase.enabled && (
-          <div className={styles.spacing} style={{ marginTop: 30 }}>
+          <div className={styles.spacing}>
             <Heading size={2}>Available Rooms</Heading>
             {isLoading && <Loading />}
 
             {!isLoading && exploreRooms.length === 0 && (
               <div>No rooms available</div>
             )}
+
             <RoomList rooms={exploreRooms} />
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
