@@ -37,8 +37,6 @@ export default function Debates() {
       <Container>
         <div className={styles.buttonCreateRoom}>
           <Button
-            outline="granted"
-            big
             onClick={() => {
               router.push({
                 pathname: "/createroom",

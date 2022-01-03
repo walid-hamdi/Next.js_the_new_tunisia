@@ -109,9 +109,9 @@ export default function Ideas() {
 
       {/* <div className={styles.createIdea}> */}
       <Container>
-        <Heading size={1} className={styles.headingCreateIdea}>
+        {/* <Heading size={1} className={styles.headingCreateIdea}>
           Create and Manage Ideas
-        </Heading>
+        </Heading> */}
         <form onSubmit={createIdea}>
           <div>
             <Input
@@ -154,11 +154,12 @@ export default function Ideas() {
               <option value="other">Other</option>
             </SelectInput>
           </div>
-
-          {createFormError && <div className="error">{createFormError}</div>}
+          {createFormError && (
+            <div className={styles.error}>{createFormError}</div>
+          )}
 
           <div style={{ marginTop: 20, width: "fit-content" }}>
-            <Button outline="granted" type="submit">
+            <Button big type="submit">
               Create Idea
             </Button>
           </div>
@@ -171,6 +172,7 @@ export default function Ideas() {
             {!isLoading && exploreIdeas.length === 0 && (
               <div>You haven't shared any idea yet!</div>
             )}
+            {exploreIdeas.length !== 0 ? <p>List of ideas</p> : null}
 
             <IdeaList ideas={exploreIdeas} />
           </div>

@@ -159,7 +159,7 @@ export default function CreateRoom() {
       <Container>
         <div className={styles.spacing}>
           <Heading className={styles.brandCreateRoom} size={1}>
-            Join Our Digital Community 📢
+            Join 📢
           </Heading>
 
           <div>

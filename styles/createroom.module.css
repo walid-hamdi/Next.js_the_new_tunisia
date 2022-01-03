@@ -6,7 +6,8 @@
   text-align: center;
 }
 .error {
-  font-size: 12px;
+  font-size: 2rem;
   text-align: center;
   margin: 6px 0;
+  color: tomato;
 }
