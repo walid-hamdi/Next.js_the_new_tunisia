@@ -111,7 +111,7 @@ export default function Ideas() {
           Create and Manage Ideas
         </Heading>
         <form onSubmit={createIdea}>
-          <div style={{ marginTop: 20 }}>
+          <div>
             <Input
               onChange={(e) => setIdeaTitle(e.target.value.toUpperCase())}
               placeholder="Idea title"

@@ -72,9 +72,9 @@ function Navbar() {
           <nav className={styles.navMenu}>
             <ul className={styles.navMenuItems}>
               <div className={styles.navBrand}>
-                <Heading style={{ paddingTop: "3rem" }} size={1}>
+                {/* <Heading style={{ paddingTop: "3rem" }} size={1}>
                   THE NEW TUNISIA
-                </Heading>
+                </Heading> */}
                 {/* <Link href="/">
                   <a className={styles.logoWrapper}>
                     <Image
@@ -84,12 +84,13 @@ function Navbar() {
                     />
                   </a>
                 </Link> */}
+                {user && (
+                  <span style={{ display: "block", marginBottom: "30px" }}>
+                    📢 Hey {user.name} 📢
+                  </span>
+                )}
               </div>
-              {user && (
-                <span style={{ display: "block", marginBottom: "30px" }}>
-                  📢 Hey {user.name} 📢
-                </span>
-              )}
+
               {SidebarData.map((item, index) => {
                 return (
                   <li

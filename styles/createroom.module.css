@@ -1,7 +1,5 @@
 .createRoom {
-  padding-bottom: 10rem;
-  overflow: auto;
-  height: 100%;
+  min-height: 120%;
 }
 
 .brandCreateRoom {

@@ -1,10 +1,9 @@
 .createIdea {
+  min-height: 120%;
 }
+
 .headingCreateIdea {
   padding: 2rem 0;
-}
-.displayIdea {
-  width: 100%;
 }
 
 .error {
