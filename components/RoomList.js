@@ -6,6 +6,7 @@ import { FiUser, FiHome, FiGlobe, FiMapPin, FiBookOpen } from "react-icons/fi";
 import { useAuth } from "../contexts/AuthUserContext";
 
 import styles from "./roomlist.module.css";
+import Button from "./Button";
 
 export default function RoomList({ rooms }) {
   const router = useRouter();
@@ -43,12 +44,10 @@ export default function RoomList({ rooms }) {
                 {room.users || 0} <FiUser style={{ marginLeft: "6px" }} />
               </div>
             </div>
-
             <div className={styles.roomTopicWrapper}>
               <FiBookOpen />
               <span className={styles.roomTopic}> {room.roomTopic}</span>
             </div>
-
             <div className={styles.roomContainer}>
               <div>
                 <FiGlobe style={{ marginRight: "6px" }} />
@@ -59,10 +58,22 @@ export default function RoomList({ rooms }) {
                 {room.roomLocation}
               </div>
             </div>
-
-            <span className={styles.joinBadge}>
-              {user ? "Join Now" : "Please Sign in to join"}
-            </span>
+            {user ? (
+              <Button outline="granted" style={{ width: "fit-content" }}>
+                Join
+              </Button>
+            ) : (
+              <Button
+                outline="granted"
+                style={{ width: "fit-content", color: "gray" }}
+              >
+                logged in first
+              </Button>
+            )}
+            {/* <span className={styles.joinBadge}>
+              // {user ? "Join Now" : "Please Sign in to join"}
+              //{" "}
+            </span> */}
           </a>
         </Link>
       ))}

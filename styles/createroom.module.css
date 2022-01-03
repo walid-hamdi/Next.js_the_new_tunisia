@@ -1,11 +1,9 @@
-.createRoom {
-  min-height: 120%;
+.brandCreateRoom {
+  padding: 3rem 0;
 }
 
 .brandCreateRoom {
-  /* //  transform: rotate(2deg); */
   text-align: center;
-  padding: 3rem 0;
 }
 .error {
   font-size: 12px;

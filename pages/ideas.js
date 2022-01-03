@@ -18,6 +18,7 @@ import {
 } from "../hooks/useFirestore";
 import Head from "next/head";
 import { useAuth } from "../contexts/AuthUserContext";
+import Container from "../components/Container";
 
 export default function Ideas() {
   const [ideaTitle, setIdeaTitle] = useState("");
@@ -106,8 +107,9 @@ export default function Ideas() {
         />
       </Head>
 
-      <div className={styles.createIdea}>
-        <Heading size={3} className={styles.headingCreateIdea}>
+      {/* <div className={styles.createIdea}> */}
+      <Container>
+        <Heading size={1} className={styles.headingCreateIdea}>
           Create and Manage Ideas
         </Heading>
         <form onSubmit={createIdea}>
@@ -156,24 +158,24 @@ export default function Ideas() {
           {createFormError && <div className="error">{createFormError}</div>}
 
           <div style={{ marginTop: 20, width: "fit-content" }}>
-            <Button outline="granted" avoid type="submit">
+            <Button outline="granted" type="submit">
               Create Idea
             </Button>
           </div>
         </form>
-      </div>
 
-      {config.firebase.enabled && (
-        <div className="spacing display-idea" style={{ marginTop: 30 }}>
-          {isLoading && <Loading />}
+        {config.firebase.enabled && (
+          <div className="spacing display-idea" style={{ marginTop: 30 }}>
+            {isLoading && <Loading />}
 
-          {!isLoading && exploreIdeas.length === 0 && (
-            <div>You haven't shared any idea yet!</div>
-          )}
+            {!isLoading && exploreIdeas.length === 0 && (
+              <div>You haven't shared any idea yet!</div>
+            )}
 
-          <IdeaList ideas={exploreIdeas} />
-        </div>
-      )}
+            <IdeaList ideas={exploreIdeas} />
+          </div>
+        )}
+      </Container>
     </>
   );
 }

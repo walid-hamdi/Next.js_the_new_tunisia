@@ -1,12 +1,5 @@
-export default function Container ({ children }) {
-  return (
-    <div>
-      {children}
-      <style jsx>{`
-        div {
-          padding: 20px;
-        }
-      `}</style>
-    </div>
-  )
+import styles from "./container.module.css";
+
+export default function Container({ children }) {
+  return <div className={styles.container}>{children}</div>;
 }

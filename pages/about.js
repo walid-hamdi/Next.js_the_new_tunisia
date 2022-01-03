@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Container from "../components/Container";
 import Heading from "../components/Heading";
 
 import styles from "../styles/about.module.css";
@@ -13,8 +14,9 @@ export default function About() {
           content="About our communication system benefit and our mission, the new tunisia developer community"
         />
       </Head>
-      <div className={styles.aboutContainer}>
-        <Heading size={3}>About Us</Heading>
+      {/* <div className={styles.aboutContainer}> */}
+      <Container>
+        <Heading size={1}>About Us</Heading>
         <p>
           We create this platform for collaboration and communication to come up
           with new ideas
@@ -40,7 +42,7 @@ export default function About() {
             <p>Interested in digital transformation</p>
           </li>
         </ul>
-      </div>
+      </Container>
     </>
   );
 }

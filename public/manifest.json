@@ -1,11 +1,11 @@
 {
-    "theme_color": "#f69435",
-    "background_color": "#f69435",
+    "theme_color": "#fefffe",
+    "background_color": "#14162b",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
     "name": "The New Tunisia",
-    "short_name": "Tunisia",
+    "short_name": "TnTn",
     "description": "Voice communication system for digital purposes",
     "icons": [
         {

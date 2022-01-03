@@ -28,7 +28,10 @@ function Navbar() {
       setAppearNavbar(false);
       setUser(null);
       showDialogue();
-    } else setUser(authUser);
+    } else {
+      setUser(authUser);
+      router.push("/debates");
+    }
   }, [authUser, loading]);
 
   const showDialogue = () => {};
@@ -37,13 +40,14 @@ function Navbar() {
     setError(null);
     try {
       signInWithGoogle();
+      setAppearNavbar(false);
     } catch (err) {
       setError(err);
     }
   };
 
   return (
-    <div>
+    <div className={styles.navbarContainer}>
       <div
         className={cn([
           styles.icon,
@@ -72,22 +76,17 @@ function Navbar() {
           <nav className={styles.navMenu}>
             <ul className={styles.navMenuItems}>
               <div className={styles.navBrand}>
-                {/* <Heading style={{ paddingTop: "3rem" }} size={1}>
-                  THE NEW TUNISIA
-                </Heading> */}
-                {/* <Link href="/">
-                  <a className={styles.logoWrapper}>
-                    <Image
-                      src="/images/logo.svg"
-                      alt="Picture of logo"
-                      layout="fill"
-                    />
-                  </a>
-                </Link> */}
                 {user && (
-                  <span style={{ display: "block", marginBottom: "30px" }}>
-                    📢 Hey {user.name} 📢
-                  </span>
+                  <div className={styles.accountContainer}>
+                    <div className={styles.photoProfile}>
+                      {/* <p>Welcome {user.name}</p> */}
+                      <Image
+                        src={user.photoUrl || "/images/avatar.jpg"}
+                        alt="Profile photo"
+                        layout="fill"
+                      />
+                    </div>
+                  </div>
                 )}
               </div>
 
@@ -116,29 +115,18 @@ function Navbar() {
               {loading && <Loading />}
 
               {!loading && user ? (
-                <div className={styles.profileContainer}>
-                  <div>
-                    <Button outline="granted" small onClick={signOut}>
-                      Sign Out
-                    </Button>
-                  </div>
-
-                  <div className={styles.photoProfile}>
-                    {/* <p>Welcome {user.name}</p> */}
-                    <Image
-                      src={user.photoUrl || "/images/avatar.jpg"}
-                      alt="Profile photo"
-                      layout="fill"
-                    />
-                  </div>
+                <div className={styles.signInWrapper}>
+                  <Button outline="granted" onClick={signOut}>
+                    Sign Out
+                  </Button>
                 </div>
               ) : (
                 !loading && (
                   <div className={styles.signInWrapper}>
                     <Button
                       outline="granted"
-                      fullWidth
                       big
+                      avoid
                       onClick={handleSignWithGoogle}
                     >
                       Sign In

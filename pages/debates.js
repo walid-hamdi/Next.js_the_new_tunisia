@@ -10,6 +10,7 @@ import { useFirestoreRooms } from "../hooks/useFirestore";
 import Button from "../components/Button";
 import { Loading } from "../components/Loading";
 import styles from "../styles/debates.module.css";
+import Container from "../components/Container";
 
 export default function Debates() {
   const router = useRouter();
@@ -32,11 +33,11 @@ export default function Debates() {
         />
       </Head>
 
-      <div className={styles.roomContainer}>
+      {/* <div className={styles.roomContainer}> */}
+      <Container>
         <div className={styles.buttonCreateRoom}>
           <Button
             outline="granted"
-            fullWidth
             big
             onClick={() => {
               router.push({
@@ -60,7 +61,7 @@ export default function Debates() {
             <RoomList rooms={exploreRooms} />
           </div>
         )}
-      </div>
+      </Container>
     </>
   );
 }

@@ -1,9 +1,6 @@
-.createIdea {
-  min-height: 120%;
-}
-
 .headingCreateIdea {
-  padding: 2rem 0;
+  text-align: center;
+  padding: 3rem 0;
 }
 
 .error {

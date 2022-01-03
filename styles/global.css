@@ -21,3 +21,25 @@ body {
 * {
   box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+  height: 3px;
+  width: 1rem;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, #020024, #406f79);
+  border-radius: 10px;
+}
+
+/* for tablet */
+@media screen and (min-width: 700px) {
+  body {
+    font-size: 1.5rem;
+  }
+}
+/* for desktop */
+@media screen and (min-width: 1000px) {
+  body {
+    font-size: 1rem;
+  }
+}

@@ -1,11 +1,4 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .headingTunisia {
-  padding: 2rem 0;
+  /* padding: 2rem 0; */
+  text-align: center;
 }

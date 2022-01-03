@@ -1,19 +1,7 @@
-.homeContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
-  width: 100%;
-
-  overflow: auto;
-  text-align: center;
-  /* margin: 0 2rem; */
-  padding: 5rem;
-}
 .button {
-  width: fit-content;
   margin-top: 20px;
+  transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  text-align: center;
 }
 
 .headings {
@@ -21,4 +9,7 @@
   text-align: center;
   /* width: 100%; */
   font-size: 2.5rem;
+}
+
+@media screen and (min-width: 700px) {
 }

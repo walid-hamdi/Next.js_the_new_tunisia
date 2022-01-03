@@ -13,6 +13,7 @@ import { useAuth } from "../contexts/AuthUserContext";
 import styles from "../styles/createroom.module.css";
 import Head from "next/head";
 import Heading from "../components/Heading";
+import Container from "../components/Container";
 
 export default function CreateRoom() {
   const router = useRouter();
@@ -154,9 +155,10 @@ export default function CreateRoom() {
           content="Create voice rooms, the new tunisia developer community"
         />
       </Head>
-      <div className={styles.createRoom}>
+      {/* <div className={styles.createRoom}> */}
+      <Container>
         <div className={styles.spacing}>
-          <Heading className={styles.brandCreateRoom} size={3}>
+          <Heading className={styles.brandCreateRoom} size={1}>
             Join Our Digital Community 📢
           </Heading>
 
@@ -244,7 +246,7 @@ export default function CreateRoom() {
             Create Room
           </Button>
         </div>
-      </div>
+      </Container>
     </>
   );
 }
