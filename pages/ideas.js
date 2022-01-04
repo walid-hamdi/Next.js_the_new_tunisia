@@ -19,6 +19,7 @@ import {
 import Head from "next/head";
 import { useAuth } from "../contexts/AuthUserContext";
 import Container from "../components/Container";
+import Image from "next/image";
 
 export default function Ideas() {
   const [ideaTitle, setIdeaTitle] = useState("");
@@ -29,14 +30,14 @@ export default function Ideas() {
 
   const [user, setUser] = useState(null);
 
-  const { authUser, loading } = useAuth();
+  const { authUser } = useAuth();
 
   useEffect(() => {
-    if (!loading && !authUser) {
+    if (!isLoading && !authUser) {
       // router.push("/")
     } else setUser(authUser);
     // return ()=>
-  }, [authUser, loading]);
+  }, [authUser, isLoading]);
 
   const exploreIdeas = useMemo(() => {
     const now = +new Date() / 1000;
@@ -109,61 +110,65 @@ export default function Ideas() {
 
       {/* <div className={styles.createIdea}> */}
       <Container>
-        {/* <Heading size={1} className={styles.headingCreateIdea}>
-          Create and Manage Ideas
-        </Heading> */}
-        <form onSubmit={createIdea}>
-          <div>
-            <Input
-              onChange={(e) => setIdeaTitle(e.target.value.toUpperCase())}
-              placeholder="Idea title"
-            />
-          </div>
+        <div className={styles.createIdeaForm}>
+          <Heading size={1} className={styles.headingCreateIdea}>
+            Manage ideas
+          </Heading>
+          <form onSubmit={createIdea}>
+            <div>
+              <Input
+                onChange={(e) => setIdeaTitle(e.target.value.toUpperCase())}
+                placeholder="Idea title"
+              />
+            </div>
 
-          <div>
-            <textarea
-              className={styles.textarea}
-              onChange={(e) => setIdeaDes(e.target.value)}
-              placeholder="Idea description"
-            ></textarea>
-          </div>
+            <div>
+              <textarea
+                className={styles.textarea}
+                onChange={(e) => setIdeaDes(e.target.value)}
+                placeholder="Idea description"
+              ></textarea>
+            </div>
 
-          <div>
-            <SelectInput
-              placeholder="Idea Topic"
-              onChange={(e) => setIdeaTopic(e.target.value)}
-              defaultValue="default"
-            >
-              <option value="default" disabled>
-                Choose the idea topic
-              </option>
-              <option value="Medical Transformation">
-                Medical Transformation
-              </option>
-              <option value="Agriculture Transformation">
-                Agriculture Transformation
-              </option>
-              <option value="Administration Transformation">
-                Administration Transformation
-              </option>
-              <option value="Education Transformation">
-                Education Transformation
-              </option>
-              <option value="Media Transformation">Media Transformation</option>
+            <div>
+              <SelectInput
+                placeholder="Idea Topic"
+                onChange={(e) => setIdeaTopic(e.target.value)}
+                defaultValue="default"
+              >
+                <option value="default" disabled>
+                  Choose the idea topic
+                </option>
+                <option value="Medical Transformation">
+                  Medical Transformation
+                </option>
+                <option value="Agriculture Transformation">
+                  Agriculture Transformation
+                </option>
+                <option value="Administration Transformation">
+                  Administration Transformation
+                </option>
+                <option value="Education Transformation">
+                  Education Transformation
+                </option>
+                <option value="Media Transformation">
+                  Media Transformation
+                </option>
 
-              <option value="other">Other</option>
-            </SelectInput>
-          </div>
-          {createFormError && (
-            <div className={styles.error}>{createFormError}</div>
-          )}
+                <option value="other">Other</option>
+              </SelectInput>
+            </div>
+            {createFormError && (
+              <div className={styles.error}>{createFormError}</div>
+            )}
 
-          <div style={{ marginTop: 20, width: "fit-content" }}>
-            <Button big type="submit">
-              Create Idea
-            </Button>
-          </div>
-        </form>
+            <div style={{ marginTop: 20, width: "fit-content" }}>
+              <Button big type="submit">
+                Create Idea
+              </Button>
+            </div>
+          </form>
+        </div>
 
         {config.firebase.enabled && (
           <div className="spacing display-idea" style={{ marginTop: 30 }}>

@@ -1,3 +1,14 @@
+@media screen and (min-width: 700px) {
+  .createRoomContainer {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .createRoomContainer {
+    width: 30%;
+  }
+}
+
 .brandCreateRoom {
   padding: 3rem 0;
 }

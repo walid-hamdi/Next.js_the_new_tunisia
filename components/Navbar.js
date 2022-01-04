@@ -30,7 +30,7 @@ function Navbar() {
       showDialogue();
     } else {
       setUser(authUser);
-      router.push("/debates");
+      // router.push("/debates");
     }
   }, [authUser, loading]);
 

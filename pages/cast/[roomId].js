@@ -13,6 +13,8 @@ function RoomPage() {
   const { roomId, userName, roomName, roomTopic, roomLanguage, roomLocation } =
     router.query;
 
+  const photoUrl = "/images/avatar.jpg";
+
   return (
     <>
       <Head>
@@ -26,6 +28,7 @@ function RoomPage() {
       <PlayerMain
         roomId={roomId}
         userName={userName}
+        userPhoto={photoUrl}
         roomName={roomName}
         roomTopic={roomTopic}
         roomLanguage={roomLanguage}

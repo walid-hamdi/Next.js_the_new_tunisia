@@ -1,0 +1,10 @@
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.audio {
+  display: none;
+}

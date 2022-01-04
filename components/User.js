@@ -6,6 +6,7 @@ import { FiUser, FiMicOff } from "react-icons/fi";
 import { CgCrown } from "react-icons/cg";
 
 import styles from "./user.module.css";
+import Image from "next/image";
 
 const getInitials = function (string) {
   const names = `${string}`.trim().split(" ");
@@ -26,6 +27,8 @@ export default function User({
   me,
   stream,
   name,
+  userPhoto,
+  user,
   highlight,
   ...props
 }) {
@@ -42,22 +45,25 @@ export default function User({
   return (
     <div className={styles.User} {...props}>
       <div
-        className={cc([{ speaking, highlight }, `${styles.avatar}`])}
-        style={{ backgroundColor: stc(name) }}
+        // className={cc([{ speaking, highlight }, `${styles.avatar}`])}
+
         onClick={onClick}
       >
         {onClick && hoverIcon && (
           <div className={styles.avatarAction}>{hoverIcon}</div>
         )}
-        <span>{getInitials(name)}</span>
-        {(muted || me || host) && !reaction && (
+        {/* <span>{getInitials(name)}</span> */}
+        {/* {(muted || me || host) && !reaction && (
           <div className={styles.dot}>
             {muted && <FiMicOff />}
             {host && !me && <CgCrown />}
             {me && !muted && <FiUser />}
           </div>
-        )}
+        )} */}
         {reaction && <div className={styles.dot}>{reaction}</div>}
+      </div>
+      <div className={styles.userPhotoContainer}>
+        <Image src={userPhoto} layout="fill" />
       </div>
       <div className={styles.name}>{name}</div>
     </div>

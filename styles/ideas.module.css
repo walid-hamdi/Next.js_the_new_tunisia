@@ -1,3 +1,14 @@
+@media screen and (min-width: 700px) {
+  .createIdeaForm {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .createIdeaForm {
+    width: 30%;
+  }
+}
+
 .headingCreateIdea {
   text-align: center;
   padding: 3rem 0;

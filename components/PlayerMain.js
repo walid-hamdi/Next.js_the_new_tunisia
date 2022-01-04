@@ -17,6 +17,10 @@ import ActionGroup from "./ActionGroup";
 import Button from "./Button";
 import Container from "./Container";
 
+import { RiWhatsappLine, RiTelegramLine, RiLinksFill } from "react-icons/ri";
+import { WhatsappShareButton, TelegramShareButton } from "react-share";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
 import styles from "./playermain.module.css";
 
 export default function PlayerMain({
@@ -27,6 +31,7 @@ export default function PlayerMain({
   roomLanguage,
   roomLocation,
   isHost,
+  userPhoto,
 }) {
   return (
     <StreamContextProvider>
@@ -36,6 +41,7 @@ export default function PlayerMain({
           roomId,
           user: {
             name: userName,
+            userPhoto: userPhoto,
           },
           roomMetadata: {
             title: roomName,
@@ -147,75 +153,96 @@ function Main({ user }) {
     });
   }
 
+  const shareLinks = () => {
+    const shareMessage = `Join my Room with this link`;
+
+    return (
+      shareLink && (
+        <Container>
+          {/* <p style={{ marginBottom: "1rem" }}>Share link</p> */}
+          <div
+            style={{
+              fontSize: "3rem",
+              position: "absolute",
+              right: "3rem",
+              top: "3rem",
+            }}
+          >
+            <WhatsappShareButton
+              style={{ marginRight: 20 }}
+              url={shareLink}
+              title={shareMessage}
+            >
+              <RiWhatsappLine />
+            </WhatsappShareButton>
+            <TelegramShareButton
+              style={{ marginRight: 20 }}
+              url={shareLink}
+              title={shareMessage}
+            >
+              <RiTelegramLine />
+            </TelegramShareButton>
+            <CopyToClipboard text={shareLink}>
+              <RiLinksFill style={{ cursor: "pointer" }} />
+            </CopyToClipboard>
+          </div>
+        </Container>
+      )
+    );
+  };
+
   return (
-    <div className={styles.playerContainer}>
+    <>
       <Container>
-        <div className={styles.roomHeader}>
-          <Button small success>
+        <div>
+          {/* <Button small success>
             Owner : {user.name}
-          </Button>
-          <Button small>Room Topic : {roomMetadata.topic}</Button>
+          </Button> */}
+          {/* <Button small>Room Topic : {roomMetadata.topic}</Button>
           <Button small>Room Title : {roomMetadata.title}</Button>
           <Button small>Room Language : {roomMetadata.language}</Button>
-          <Button small>Room Location : {roomMetadata.location}</Button>
+          <Button small>Room Location : {roomMetadata.location}</Button> */}
+          {shareLinks()}
         </div>
-      </Container>
-      <StreamPlayer />
-      <ConnectedPeersList shareLink={isHost ? shareLink : null} />
-      <ActionGroup className={styles.actionGroup}>
-        <div className={styles.actionBar}>
+        <StreamPlayer />
+        <ConnectedPeersList />
+
+        <ActionGroup>
           <Button avoid onClick={onLeave}>
-            Leave
+            X
           </Button>
 
           {(isHost || connRole === "speaker") && (
-            <Button style={{ marginLeft: 10 }} contrast onClick={muteToggle}>
+            <Button contrast onClick={muteToggle}>
               {micMuted && <FiMicOff />}
               {!micMuted && <FiMic />}
             </Button>
           )}
           {!isHost && (
-            <Button
-              style={{ marginLeft: 10 }}
-              small
-              outline
-              contrast
-              onClick={() => handleReaction("🙋‍♀️")}
-            >
+            <Button small outline contrast onClick={() => handleReaction("🙋‍♀️")}>
               🙋‍♀️
             </Button>
           )}
           {!isHost && (
-            <Button
-              style={{ marginLeft: 10 }}
-              small
-              outline
-              contrast
-              onClick={() => handleReaction("👍")}
-            >
+            <Button small outline contrast onClick={() => handleReaction("👍")}>
               👍
             </Button>
           )}
           {!isHost && (
-            <Button
-              style={{ marginLeft: 10 }}
-              small
-              outline
-              contrast
-              onClick={() => handleReaction("👎")}
-            >
+            <Button small outline contrast onClick={() => handleReaction("👎")}>
               👎
             </Button>
           )}
-        </div>
-        <Link href={"/debates"} style={{ justifySelf: "right" }}>
-          <a target="_blank">
-            <Button outline contrast>
-              See all rooms available
-            </Button>
-          </a>
-        </Link>
-      </ActionGroup>
-    </div>
+
+          <Link href={"/debates"}>
+            <a target="_blank">
+              <Button small outline contrast>
+                All rooms
+              </Button>
+            </a>
+          </Link>
+        </ActionGroup>
+      </Container>
+    </>
   );
 }

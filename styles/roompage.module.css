@@ -1,10 +1,12 @@
 .willingToConnect {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 10rem;
+  justify-content: center;
+
+  /* margin-top: 10rem; */
   align-items: center;
   height: 100%;
+  width: fit-content;
   overflow: auto;
   text-align: center;
 }

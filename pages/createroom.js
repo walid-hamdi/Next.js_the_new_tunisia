@@ -147,7 +147,7 @@ export default function CreateRoom() {
   }
 
   return (
-    <>
+    <div className={styles.createRoomContainer}>
       <Head>
         <title>Create room | The New Tunisia</title>
         <meta
@@ -157,7 +157,7 @@ export default function CreateRoom() {
       </Head>
       {/* <div className={styles.createRoom}> */}
       <Container>
-        <div className={styles.spacing}>
+        <div>
           <Heading className={styles.brandCreateRoom} size={1}>
             Join 📢
           </Heading>
@@ -247,6 +247,6 @@ export default function CreateRoom() {
           </Button>
         </div>
       </Container>
-    </>
+    </div>
   );
 }
