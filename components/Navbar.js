@@ -101,6 +101,7 @@ function Navbar() {
           <nav className={styles.navMenu}>
             <ul className={styles.navMenuItems}>
               <div className={styles.navBrand}>
+                {loading && <Loading />}
                 {user && (
                   <div className={styles.accountContainer}>
                     <div className={styles.photoProfile}>
