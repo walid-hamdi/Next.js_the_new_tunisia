@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { SidebarData } from "./SidebarData";
 import { IconContext } from "react-icons";
 import Link from "next/link";
@@ -14,13 +14,37 @@ import Button from "./Button";
 import { useAuth } from "../contexts/AuthUserContext";
 import Heading from "./Heading";
 
+/*
+1- add animation effect with motion framer
+2- handle room issue
+3- handle room empty issue
+4- appear ideas
+5- data visual
+6- custom cursor
+*/
+
 function Navbar() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [appearNavbar, setAppearNavbar] = useState(false);
+  const dropdown = useRef(null);
 
   const { authUser, loading, signOut, signInWithGoogle } = useAuth();
+
+  useEffect(() => {
+    // only add the event listener when the dropdown is opened
+    if (!appearNavbar) return;
+    function handleClick(event) {
+      if (dropdown.current && !dropdown.current.contains(event.target)) {
+        setAppearNavbar(false);
+      }
+    }
+    window.addEventListener("click", handleClick);
+
+    // clean up
+    return () => window.removeEventListener("click", handleClick);
+  }, [appearNavbar]);
 
   useEffect(() => {
     if (!loading && !authUser) {
@@ -49,6 +73,7 @@ function Navbar() {
   return (
     <div className={styles.navbarContainer}>
       <div
+        ref={dropdown}
         className={cn([
           styles.icon,
           styles.navIcon,
