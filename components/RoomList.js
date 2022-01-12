@@ -22,9 +22,6 @@ export default function RoomList({ rooms }) {
     } else setUser(authUser);
   }, [authUser, loading]);
 
-  // http://localhost:3000/room/e9850f1e-fcd7-456b-89f4-012a69d652a7
-  // http://localhost:3000/cast/e9850f1e-fcd7-456b-89f4-012a69d652a7
-
   return (
     <div className={styles.rooms}>
       {rooms.map((room) => (

@@ -12,7 +12,7 @@ import cn from "classcat";
 
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthUserContext";
-import Heading from "./Heading";
+import { motion } from "framer-motion";
 
 /*
 1- add animation effect with motion framer
@@ -73,6 +73,9 @@ function Navbar() {
   return (
     <div className={styles.navbarContainer}>
       <div
+        // initial={{ opacity: 0 }}
+        // animate={{ opacity: 1 }}
+        // transition={{ duration: 0.3 }}
         ref={dropdown}
         className={cn([
           styles.icon,
@@ -93,6 +96,9 @@ function Navbar() {
       </div>
 
       <div
+        // initial={{ opacity: 0 }}
+        // animate={appearNavbar ? { opacity: 1 } : { opacity: 0 }}
+        // transition={{ duration: 0.6 }}
         className={cn([
           `${appearNavbar ? styles.appearNavbar : styles.disabledAppear} `,
         ])}

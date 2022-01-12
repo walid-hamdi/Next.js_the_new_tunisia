@@ -5,9 +5,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Navbar />
-      {/* <div className={styles.container}> */}
       <div className={styles.container}>{children}</div>
-      {/* </div> */}
     </>
   );
 }

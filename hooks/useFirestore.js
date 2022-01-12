@@ -16,8 +16,8 @@ export function createRoom(id, data) {
     .collection("rooms")
     .doc(id)
     .set({
-      created: firebase.firestore.FieldValue.serverTimestamp(),
-      lastPing: firebase.firestore.FieldValue.serverTimestamp(),
+      created: firebase.firestore.Timestamp.now(),
+      lastPing: firebase.firestore.Timestamp.now(),
       users: 1,
       ...data,
     });
@@ -27,7 +27,7 @@ export function createIdea(id, data, userId) {
   if (!config.firebase.enabled) return;
 
   return db.doc(`users/${userId}/ideas/${id}`).set({
-    created: firebase.firestore.FieldValue.serverTimestamp(),
+    created: firebase.firestore.Timestamp.now(),
     ...data,
   });
 }

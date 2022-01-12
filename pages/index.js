@@ -5,6 +5,7 @@ import Heading from "../components/Heading";
 import styles from "../styles/home.module.css";
 
 import Container from "../components/Container";
+import { motion } from "framer-motion";
 
 export default function Index() {
   const router = useRouter();
@@ -28,7 +29,11 @@ export default function Index() {
             {/* <Heading size={2}>Data visualization for Tunisian Economy</Heading> */}
           </div>
 
-          <div className={styles.button}>
+          <motion.div
+            className={styles.button}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9, x: "-5px", y: "5px" }}
+          >
             <Button
               outline="granted"
               big
@@ -41,7 +46,7 @@ export default function Index() {
             >
               Join Our Community
             </Button>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </>
