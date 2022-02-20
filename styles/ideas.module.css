@@ -9,6 +9,22 @@
   }
 }
 
+.idea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 3rem;
+}
+
+.createIdeaForm {
+  margin-top: 4rem;
+}
+
+.itemsIdea {
+  margin-right: 1rem;
+}
+
 .headingCreateIdea {
   text-align: center;
   padding: 3rem 0;

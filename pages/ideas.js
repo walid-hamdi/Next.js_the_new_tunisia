@@ -19,7 +19,6 @@ import {
 import Head from "next/head";
 import { useAuth } from "../contexts/AuthUserContext";
 import Container from "../components/Container";
-import Image from "next/image";
 
 export default function Ideas() {
   const [ideaTitle, setIdeaTitle] = useState("");
@@ -108,8 +107,7 @@ export default function Ideas() {
         />
       </Head>
 
-      {/* <div className={styles.createIdea}> */}
-      <Container>
+      <div className={styles.idea}>
         <div className={styles.createIdeaForm}>
           <Heading size={1} className={styles.headingCreateIdea}>
             Manage ideas
@@ -162,8 +160,8 @@ export default function Ideas() {
               <div className={styles.error}>{createFormError}</div>
             )}
 
-            <div style={{ marginTop: 20, width: "fit-content" }}>
-              <Button big type="submit">
+            <div style={{ marginTop: 20 }}>
+              <Button big fullWidth type="submit">
                 Create Idea
               </Button>
             </div>
@@ -171,7 +169,7 @@ export default function Ideas() {
         </div>
 
         {config.firebase.enabled && (
-          <div className="spacing display-idea" style={{ marginTop: 30 }}>
+          <div className={styles.itemsIdea}>
             {isLoading && <Loading />}
 
             {!isLoading && exploreIdeas.length === 0 && (
@@ -182,7 +180,7 @@ export default function Ideas() {
             <IdeaList ideas={exploreIdeas} />
           </div>
         )}
-      </Container>
+      </div>
     </>
   );
 }

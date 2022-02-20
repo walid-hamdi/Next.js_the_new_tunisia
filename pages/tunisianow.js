@@ -4,7 +4,6 @@ import Head from "next/head";
 import styles from "../styles/tunisianow.module.css";
 import Container from "../components/Container";
 
-
 export default function Tunisianow() {
   return (
     <>
@@ -25,9 +24,8 @@ export default function Tunisianow() {
           <Heading size={3} style={{ marginLeft: "5rem" }}>
             Medical Transformation
           </Heading>
-         
         </Container>
- </Container>
+      </Container>
     </>
   );
 }
