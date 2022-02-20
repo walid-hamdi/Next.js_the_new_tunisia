@@ -12,16 +12,6 @@ import cn from "classcat";
 
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthUserContext";
-import { motion } from "framer-motion";
-
-/*
-1- add animation effect with motion framer
-2- handle room issue
-3- handle room empty issue
-4- appear ideas
-5- data visual
-6- custom cursor
-*/
 
 function Navbar() {
   const router = useRouter();
@@ -49,33 +39,20 @@ function Navbar() {
   useEffect(() => {
     if (!loading && !authUser) {
       router.push("/");
-      setAppearNavbar(false);
       setUser(null);
-      showDialogue();
     } else {
       setUser(authUser);
-      // router.push("/debates");
+      router.push("/debates");
     }
   }, [authUser, loading]);
 
-  const showDialogue = () => {};
-
-  const handleSignWithGoogle = () => {
-    setError(null);
-    try {
-      signInWithGoogle();
-      setAppearNavbar(false);
-    } catch (err) {
-      setError(err);
-    }
+  const handleSignWithGoogle = async () => {
+    signInWithGoogle();
   };
 
   return (
     <div className={styles.navbarContainer}>
       <div
-        // initial={{ opacity: 0 }}
-        // animate={{ opacity: 1 }}
-        // transition={{ duration: 0.3 }}
         ref={dropdown}
         className={cn([
           styles.icon,
@@ -96,9 +73,6 @@ function Navbar() {
       </div>
 
       <div
-        // initial={{ opacity: 0 }}
-        // animate={appearNavbar ? { opacity: 1 } : { opacity: 0 }}
-        // transition={{ duration: 0.6 }}
         className={cn([
           `${appearNavbar ? styles.appearNavbar : styles.disabledAppear} `,
         ])}

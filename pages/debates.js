@@ -16,10 +16,11 @@ export default function Debates() {
   const [rooms, isLoading] = useFirestoreRooms();
 
   const exploreRooms = useMemo(() => {
-    const now = +new Date() / 1000;
-    return rooms
-      .filter((room) => room.lastPing)
-      .filter((room) => now - room.lastPing.seconds < 30);
+    // const now = +new Date() / 1000;
+    // return rooms
+    //   .filter((room) => room.lastPing)
+    //   .filter((room) => now - room.lastPing.seconds < 30);
+    return rooms.filter((room) => room.users > 0);
   }, [rooms]);
 
   return (

@@ -22,6 +22,7 @@ import { WhatsappShareButton, TelegramShareButton } from "react-share";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import styles from "./playermain.module.css";
+import { updateRoom } from "../hooks/useFirestore";
 
 export default function PlayerMain({
   roomId,
@@ -128,6 +129,9 @@ function Main({ user }) {
         conn.call.close();
       });
     }
+    // update room to set users = 0
+    updateRoom(roomId, { users: 0 });
+
     router.push("/");
   }
 
@@ -159,7 +163,6 @@ function Main({ user }) {
     return (
       shareLink && (
         <Container>
-          {/* <p style={{ marginBottom: "1rem" }}>Share link</p> */}
           <div
             style={{
               fontSize: "3rem",
@@ -194,16 +197,7 @@ function Main({ user }) {
   return (
     <>
       <Container>
-        <div>
-          {/* <Button small success>
-            Owner : {user.name}
-          </Button> */}
-          {/* <Button small>Room Topic : {roomMetadata.topic}</Button>
-          <Button small>Room Title : {roomMetadata.title}</Button>
-          <Button small>Room Language : {roomMetadata.language}</Button>
-          <Button small>Room Location : {roomMetadata.location}</Button> */}
-          {shareLinks()}
-        </div>
+        <div>{shareLinks()}</div>
         <StreamPlayer />
         <ConnectedPeersList />
 

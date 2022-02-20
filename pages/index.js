@@ -24,9 +24,15 @@ export default function Index() {
       <Container>
         <div style={{ marginTop: "150px" }}>
           <div className={styles.headings}>
-            <Heading size={3}>Digital Transformation Community</Heading>
-            <Heading size={2}>Voice Communication System</Heading>
-            {/* <Heading size={2}>Data visualization for Tunisian Economy</Heading> */}
+            <Heading style={{ margin: "2rem" }} size={3}>
+              Digital Transformation Community
+            </Heading>
+            <Heading style={{ margin: 0 }} size={2}>
+              Voice Communication System
+            </Heading>
+            <Heading style={{ margin: 0 }} size={4}>
+              صوت تونس الجديدة
+            </Heading>
           </div>
 
           <motion.div
