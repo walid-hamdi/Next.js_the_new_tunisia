@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { firebase } from "../libs/firebase";
 
 import config from "../config";
+import { useAuth } from "../contexts/AuthUserContext";
 export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
 let db;
 try {
@@ -46,6 +47,12 @@ export function deleteIdea(id, userId) {
   if (!config.firebase.enabled) return;
   return db.doc(`users/${userId}/ideas/${id}`).delete();
 }
+export function updateIdea(id, userId, data) {
+  if (!config.firebase.enabled) return;
+  return db.doc(`users/${userId}/ideas/${id}`).update({
+    ...data,
+  });
+}
 
 export function useFirestoreRooms() {
   const [rooms, setRooms] = useState([]);
@@ -70,13 +77,14 @@ export function useFirestoreRooms() {
 }
 
 export function useFirestoreIdeas() {
+  if (!config.firebase.enabled) return;
+
   const [ideas, setIdeas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!config.firebase.enabled) return;
-
   useEffect(() => {
     setIsLoading(true);
+
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) return setIsLoading(false);
 
@@ -88,6 +96,8 @@ export function useFirestoreIdeas() {
           setIdeas(snapshot.docs.map((doc) => doc.data()));
           setIsLoading(false);
         });
+      setIsLoading(false);
+
       return unsubscribe;
     });
   }, []);

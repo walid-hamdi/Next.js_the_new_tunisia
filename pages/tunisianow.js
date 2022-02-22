@@ -3,6 +3,8 @@ import Head from "next/head";
 
 import styles from "../styles/tunisianow.module.css";
 import Container from "../components/Container";
+import Chart from "../components/Shapes/Chart";
+import MapTunisia from "../components/Shapes/MapTunisia";
 
 export default function Tunisianow() {
   return (
@@ -24,6 +26,7 @@ export default function Tunisianow() {
           <Heading size={3} style={{ marginLeft: "5rem" }}>
             Medical Transformation
           </Heading>
+          {/* <MapTunisia /> */}
         </Container>
       </Container>
     </>

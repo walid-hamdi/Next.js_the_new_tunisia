@@ -19,6 +19,8 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
+          <script src="http://d3js.org/topojson.v1.min.js"></script>
+
           <Main />
           <NextScript />
         </body>

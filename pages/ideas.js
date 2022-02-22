@@ -18,9 +18,10 @@ import {
 } from "../hooks/useFirestore";
 import Head from "next/head";
 import { useAuth } from "../contexts/AuthUserContext";
-import Container from "../components/Container";
+import { useRouter } from "next/router";
 
 export default function Ideas() {
+  const router = useRouter();
   const [ideaTitle, setIdeaTitle] = useState("");
   const [ideaDes, setIdeaDes] = useState("");
   const [ideaTopic, setIdeaTopic] = useState(null);
@@ -33,15 +34,13 @@ export default function Ideas() {
 
   useEffect(() => {
     if (!isLoading && !authUser) {
-      // router.push("/")
+      router.push("/");
     } else setUser(authUser);
     // return ()=>
   }, [authUser, isLoading]);
 
   const exploreIdeas = useMemo(() => {
-    const now = +new Date() / 1000;
     return ideas.filter((idea) => idea.created);
-    // .filter(idea => now - idea.created.seconds < 30)
   }, [ideas]);
 
   function validForm() {
@@ -106,8 +105,7 @@ export default function Ideas() {
           content="Create and manage your  ideas , the new tunisia developer community"
         />
       </Head>
-
-      <div className={styles.idea}>
+      <div>
         <div className={styles.createIdeaForm}>
           <Heading size={1} className={styles.headingCreateIdea}>
             Manage ideas
@@ -169,11 +167,11 @@ export default function Ideas() {
         </div>
 
         {config.firebase.enabled && (
-          <div className={styles.itemsIdea}>
+          <div className={styles.itemsIdea} style={{ marginTop: "30px" }}>
             {isLoading && <Loading />}
 
             {!isLoading && exploreIdeas.length === 0 && (
-              <div>You haven't shared any idea yet!</div>
+              <span>You haven't shared any idea yet!</span>
             )}
             {exploreIdeas.length !== 0 ? <p>List of ideas</p> : null}
 

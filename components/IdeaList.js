@@ -1,13 +1,10 @@
 import Heading from "../components/Heading";
 import Button from "../components/Button";
-import { deleteIdea } from "../hooks/useFirestore";
+import { updateIdea, deleteIdea } from "../hooks/useFirestore";
 
 import styles from "./idealist.module.css";
-import { useState } from "react";
 
 export default function IdeaList({ ideas }) {
-  const [isReadMore, setIsReadMore] = useState(true);
-
   return (
     <div className={styles.ideas}>
       {ideas.map((idea, index) => (
@@ -16,29 +13,7 @@ export default function IdeaList({ ideas }) {
             {idea.ideaTitle}
           </Heading>
           <p>{idea.ideaTopic}</p>
-
-          {idea.ideaDes.length < 100 ? (
-            <p className={styles.ideaDescription}>
-              {idea.ideaDes.substring(0, idea.ideaDes.length)}
-              {setIsReadMore(false)}
-            </p>
-          ) : (
-            <div>
-              <p className={styles.ideaDescription}>
-                {idea.ideaDes.substring(0, 100) + "..."}
-                {isReadMore ? (
-                  <span
-                    onClick={() => setIsReadMore(false)}
-                    className={styles.readMore}
-                  >
-                    Read More
-                  </span>
-                ) : (
-                  idea.ideaDes.substring(100, idea.ideaDes.length)
-                )}
-              </p>
-            </div>
-          )}
+          <p className={styles.ideaDescription}>{idea.ideaDes}</p>
           <Button
             avoid
             onClick={() => {
@@ -46,6 +21,19 @@ export default function IdeaList({ ideas }) {
             }}
           >
             Delete
+          </Button>
+          <Button
+            style={{ marginLeft: "10px" }}
+            success
+            onClick={() => {
+              updateIdea(idea.ideaId, idea.userId, {
+                ideaTitle: "demo new title",
+                ideaDes: "demo new description",
+                ideaTopic: "demo new topic",
+              });
+            }}
+          >
+            Update
           </Button>
         </div>
       ))}
