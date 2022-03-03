@@ -89,8 +89,7 @@ function Navbar() {
                   // cursor: "pointer",
                 }}
               >
-                {" "}
-                {user.name.toUpperCase()}
+                {user && user.name.toUpperCase()}
               </p>
               <div className={styles.navBrand}>
                 {loading && <Loading />}
