@@ -80,17 +80,32 @@ function Navbar() {
         <IconContext.Provider value={{ color: "#fff" }}>
           <nav className={styles.navMenu}>
             <ul className={styles.navMenuItems}>
+              <p
+                style={{
+                  display: "inline-block",
+                  background: "black",
+                  padding: ".5rem .8rem",
+                  borderRadius: ".4rem",
+                  // cursor: "pointer",
+                }}
+              >
+                {" "}
+                {user.name.toUpperCase()}
+              </p>
               <div className={styles.navBrand}>
                 {loading && <Loading />}
                 {user && (
                   <div className={styles.accountContainer}>
                     <div className={styles.photoProfile}>
-                      {/* <p>Welcome {user.name}</p> */}
-                      <Image
-                        src={user.photoUrl || "/images/avatar.jpg"}
-                        alt="Profile photo"
-                        layout="fill"
-                      />
+                      <Link href="/">
+                        <a>
+                          <Image
+                            src={user.photoUrl || "/images/avatar.jpg"}
+                            alt="Profile photo"
+                            layout="fill"
+                          />
+                        </a>
+                      </Link>
                     </div>
                   </div>
                 )}

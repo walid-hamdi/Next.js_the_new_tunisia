@@ -24,7 +24,8 @@ export default function Tunisianow() {
 
         <Container>
           <Heading size={3} style={{ marginLeft: "5rem" }}>
-            Medical Transformation
+            The design and functionally of this section will be available very
+            soon
           </Heading>
           {/* <MapTunisia /> */}
         </Container>
