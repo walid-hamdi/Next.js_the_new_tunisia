@@ -1,13 +1,3 @@
 # The New Tunisia
-We create this platform for collaboration and communication to come up with new ideas
 
-That could lead to small or even big changes (Impact) in the administrations and the digital economy overall
-
-For who?
-Developers
-
-Designers
-
-Data scientist
-
-Interested in digital transformation
+This web app is a innovative platform aimed at improving communication and collaboration in Tunisia. It brings together multiple sector-specific communication systems into one convenient location and provides a voice communication system for citizens to share their opinions on important issues. Using advanced machine learning algorithms, the app analyzes the opinions shared by users and provides real-time data and insights to decision-makers. The goal of this web app is to empower citizens and promote a more informed, engaged, and responsive society.
